@@ -1,0 +1,107 @@
+#------------------------------------------------------------------------------
+# モデル数
+#------------------------------------------------------------------------------
+NUM_MODEL = 10
+
+#------------------------------------------------------------------------------
+# モデルファイル名
+#------------------------------------------------------------------------------
+MODEL_FILENAME = data/MODEL/COOKIE/00_body.x		# [0]体
+MODEL_FILENAME = data/MODEL/COOKIE/01_head.x		# [1]頭
+MODEL_FILENAME = data/MODEL/COOKIE/02_left_arm.x		# [2]右腕
+MODEL_FILENAME = data/MODEL/COOKIE/03_left_hand.x		# [3]左腕
+MODEL_FILENAME = data/MODEL/COOKIE/04_right_arm.x		# [4]右足
+MODEL_FILENAME = data/MODEL/COOKIE/05_right_hand.x		# [5]左足
+MODEL_FILENAME = data/MODEL/COOKIE/06_right_thigh.x		# [5]左足
+MODEL_FILENAME = data/MODEL/COOKIE/07_right_foot.x		# [5]左足
+MODEL_FILENAME = data/MODEL/COOKIE/08_left_thigh.x		# [5]左足
+MODEL_FILENAME = data/MODEL/COOKIE/09_left_foot.x		# [5]左足
+
+#------------------------------------------------------------------------------
+# キャラクター情報
+#------------------------------------------------------------------------------
+CHARACTERSET
+	NUM_PARTS = 10					# パーツ数
+	MOVE = 2.0						# 移動量
+	JUMP = 8.65						# ジャンプ量
+	*******************************************************
+	|			ここからペースト↓↓↓↓↓↓↓			  *
+	*******************************************************
+	PARTSSET
+		INDEX = 0
+		PARENT = -1
+		POS = 0.0 23.6 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 1
+		PARENT = 0
+		POS = 0.0 25.4 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 2
+		PARENT = 0
+		POS = 3.2 19.6 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 3
+		PARENT = 2
+		POS = 11.6 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 4
+		PARENT = 0
+		POS = -3.8 19.9 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 5
+		PARENT = 4
+		POS = -11.6 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 6
+		PARENT = 0
+		POS = -5.8 3.3 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 7
+		PARENT = 6
+		POS = -0.0 -11.2 -0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 8
+		PARENT = 0
+		POS = 5.6 3.1 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 9
+		PARENT = 8
+		POS = -0.0 -11.2 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+
+	*******************************************************
+	|			ここまでペースト↑↑↑↑↑↑↑			  *
+	*******************************************************
+
+END_CHARACTERSET
+
+END_SCRIPT

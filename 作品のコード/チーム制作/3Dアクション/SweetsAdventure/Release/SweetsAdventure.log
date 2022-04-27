@@ -1,0 +1,11 @@
+﻿  player.cpp
+player.cpp(299): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+player.cpp(358): warning C4305: '引数': 'double' から 'FLOAT' へ切り詰めます。
+player.cpp(405): warning C4305: '引数': 'double' から 'FLOAT' へ切り詰めます。
+  コード生成しています。
+  2 of 508 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  SweetsAdventure.vcxproj -> C:\Users\student\Desktop\スイートクラッシュ(マスター版)\SweetsAdventure\SweetsAdventure.exe
+  SweetsAdventure.vcxproj -> C:\Users\student\Desktop\スイートクラッシュ(マスター版)\SweetsAdventure\SweetsAdventure.pdb (Full PDB)

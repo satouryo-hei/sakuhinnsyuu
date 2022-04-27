@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\program files (x86)\microsoft directx sdk (june 2010)\include\</FILEPATH>
+      <FILENAME>dinput.h</FILENAME>
+      <LINE>4321</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>28251</DEFECTCODE>
+    <DESCRIPTION>'joyConfigChanged' に対する整合性のない注釈: このインスタンスには 注釈なし が含まれます。c:\program files (x86)\windows kits\8.1\include\um\joystickapi.h(444) を参照してください。</DESCRIPTION>
+    <FUNCTION>joyConfigChanged</FUNCTION>
+    <DECORATED>joyConfigChanged@4</DECORATED>
+    <FUNCLINE>4321</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>72</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>戻り値が無視されました: 'fscanf'</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>75</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>戻り値が無視されました: 'fscanf'</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>76</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>戻り値が無視されました: 'fscanf'</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>81</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>戻り値が無視されました: 'fscanf'</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>82</LINE>
+      <COLUMN>10</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>戻り値が無視されました: 'fscanf'</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+      <FILENAME>texture.cpp</FILENAME>
+      <LINE>93</LINE>
+      <COLUMN>7</COLUMN>
+    </SFA>
+    <DEFECTCODE>6387</DEFECTCODE>
+    <DESCRIPTION>'pFile' は '0' である可能性があります: この動作は、関数 'fclose' の指定に従っていません。</DESCRIPTION>
+    <FUNCTION>CTexture::Lode</FUNCTION>
+    <DECORATED>?Lode@CTexture@@QAEXXZ</DECORATED>
+    <FUNCLINE>58</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>60</LINE>
+        <COLUMN>10</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>19</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>64</LINE>
+        <COLUMN>5</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>66</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>68</LINE>
+        <COLUMN>11</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>分岐</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'pFile' は NULL である可能性があります (この分岐をスキップする)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>93</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>使用法</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'pFile' は 'fclose' への入力です (c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h:144 で宣言)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\student\documents\visual studio 2015\projects\setui\</FILEPATH>
+        <FILENAME>texture.cpp</FILENAME>
+        <LINE>93</LINE>
+        <COLUMN>7</COLUMN>
+        <KEYEVENT>
+          <ID>3</ID>
+          <KIND>使用法</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'pFile' を NULL にすることはできません。この値は 'fclose' の SAL 注釈と一致しません</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

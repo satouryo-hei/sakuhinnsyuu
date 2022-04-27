@@ -1,0 +1,37 @@
+#------------------------------------------------------------------------------
+# モデル数
+#------------------------------------------------------------------------------
+NUM_MODEL = 3
+#------------------------------------------------------------------------------
+# モデルファイル名
+#------------------------------------------------------------------------------
+MODEL_FILENAME = data/MODEL/Knife000.x					# [6]ナイフ
+MODEL_FILENAME = data/MODEL/Hammer000.x					# [6]ナイフ
+MODEL_FILENAME = data/MODEL/Collisoin000.x		# [1]頭
+
+	PARTSSET
+		PARENT = 3
+		POS = -7.6 0.4 -0.0
+		ROT = -3.1 -1.6 1.6
+	END_PARTSSET
+	
+	
+	PARTSSET
+		PARENT = 3
+		POS = -22.2 0.2 0.1
+		ROT = -3.1 -0.0 1.6
+	END_PARTSSET
+	
+	//当たり判定用
+	COLLISIONSET
+		PARENT = 0
+		POS = 13.6 43.6 -0.3
+		ROT = 0.0 0.0 0.0
+	END_COLLISIONSET
+
+	COLLISIONSET
+		PARENT = 1
+		POS = 0.0 28.6 0.5
+		ROT = 0.0 0.0 0.0
+	END_COLLISIONSET
+END_SCRIPTS

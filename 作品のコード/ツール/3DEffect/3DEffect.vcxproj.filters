@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\effect">
+      <UniqueIdentifier>{610cf3aa-f67d-4479-b0ae-db1318f98dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\effect\3D">
+      <UniqueIdentifier>{a3678ca8-e743-49bf-95be-cd387f230047}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="scene2D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="scene3D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="billeffect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="circle_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="dome_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="effect_manager.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="explosion_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="landing_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="smoke_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="straight_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="water_crest_effect.cpp">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="scene3D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="scene2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="billeffect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="circle_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="dome_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="effect_manager.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="landing_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="smoke_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="straight_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="water_crest_effect.h">
+      <Filter>ソース ファイル\effect\3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,980 @@
+#==============================================================================
+#
+# 『モデルビューワ』スクリプトファイル [model.txt]
+# Author : MURAMOTO TSUBASA
+#
+#==============================================================================
+SCRIPT			# この行は絶対消さないこと！
+
+#------------------------------------------------------------------------------
+# テクスチャ数
+#------------------------------------------------------------------------------
+NUM_TEXTURE = 5
+
+#------------------------------------------------------------------------------
+# テクスチャファイル名
+#------------------------------------------------------------------------------
+TEXTURE_FILENAME = data/TEXTURE/sky000.jpg					# [0]空テクスチャ
+TEXTURE_FILENAME = data/TEXTURE/mountain000.png				# [1]山テクスチャ
+TEXTURE_FILENAME = data/TEXTURE/field001.jpg				# [2]地面テクスチャ2
+TEXTURE_FILENAME = data/TEXTURE/Tyoko.png					# [3]チョコテクスチャ
+TEXTURE_FILENAME = data/TEXTURE/Sweets.jpg					# [4]お菓子のテクスチャ
+
+#------------------------------------------------------------------------------
+# モデル数
+#------------------------------------------------------------------------------
+NUM_MODEL = 8
+
+#------------------------------------------------------------------------------
+# モデルファイル名
+#------------------------------------------------------------------------------
+MODEL_FILENAME = data/MODEL/stage.x					# [0]クッキーの床
+MODEL_FILENAME = data/MODEL/Cheese_tart.x			# [1]チーズタルトの床
+MODEL_FILENAME = data/MODEL/fence.x					# [2]お菓子の柵
+MODEL_FILENAME = data/MODEL/kinokonoyama.x			# [3]きのこの山
+MODEL_FILENAME = data/MODEL/Big_kinokonoyama.x		# [4]きのこの山(大)
+MODEL_FILENAME = data/MODEL/Big_Candy.x				# [5]キャンディー
+MODEL_FILENAME = data/MODEL/Watermelon_Ice.x		# [6]アイススイカver
+MODEL_FILENAME = data/MODEL/garigarikun.x			# [7]ガリガリ君
+
+#------------------------------------------------------------------------------
+# カメラ情報
+#------------------------------------------------------------------------------
+CAMERASET
+	POS = 0.0 180.0 -720.0			# 視点
+	REF = 0.0 0.0 0.0				# 注視点
+END_CAMERASET
+
+#------------------------------------------------------------------------------
+# ライト情報
+#------------------------------------------------------------------------------
+LIGHTSET
+	DIRECTION = 0.22 -0.87 0.44		# 方向
+	DIFFUSE = 1.0 1.0 1.0			# 拡散光
+END_LIGHTSET
+
+LIGHTSET
+	DIRECTION = -0.18 0.88 -0.44	# 方向
+	DIFFUSE = 0.65 0.65 0.65		# 拡散光
+END_LIGHTSET
+
+LIGHTSET
+	DIRECTION = 0.89 -0.11 0.44		# 方向
+	DIFFUSE = 0.15 0.15 0.15		# 拡散光
+END_LIGHTSET
+
+#------------------------------------------------------------------------------
+# 空情報
+#------------------------------------------------------------------------------
+SKYSET
+	TEXTYPE = 0
+	MOVE = 0.00002
+END_SKYSET
+
+#------------------------------------------------------------------------------
+# 山情報
+#------------------------------------------------------------------------------
+MOUNTAINSET
+	TEXTYPE = 1
+END_MOUNTAINSET
+
+#------------------------------------------------------------------------------
+# 地面情報
+#------------------------------------------------------------------------------
+NUM_FIELD = 7
+
+#-------------------
+# スタート地点
+#-------------------
+FIELDSET
+	TEXTYPE = 3
+	POS = 0 0 -600
+	ROT = 0 0 0
+	BLOCK = 6 4
+	SIZE = 150 150
+END_FIELDSET
+
+#-------------------
+# 中盤
+#-------------------
+FIELDSET
+	TEXTYPE = 3
+	POS = 800 0 950
+	ROT = 0 0 0
+	BLOCK = 6 4
+	SIZE = 150 120
+END_FIELDSET
+
+FIELDSET
+	TEXTYPE = 3
+	POS = 1040 0 1600
+	ROT = 0 0 0
+	BLOCK = 2 7
+	SIZE = 120 120
+END_FIELDSET
+
+FIELDSET
+	TEXTYPE = 3
+	POS = -650 0 1200
+	ROT = 0 0 0
+	BLOCK = 4 8
+	SIZE = 130 120
+END_FIELDSET
+
+#-------------------
+# 終盤
+#-------------------
+FIELDSET
+	TEXTYPE = 3
+	POS = 50 0 2800
+	ROT = 0 0 0
+	BLOCK = 6 3
+	SIZE = 120 120
+END_FIELDSET
+
+FIELDSET
+	TEXTYPE = 3
+	POS = 50 0 3300
+	ROT = 0 0 0
+	BLOCK = 2 6
+	SIZE = 120 120
+END_FIELDSET
+
+FIELDSET
+	TEXTYPE = 3
+	POS = 50 0 3800
+	ROT = 0 0 0
+	BLOCK = 5 3
+	SIZE = 120 120
+END_FIELDSET
+
+#------------------------------------------------------------------------------
+# 障害物の配置情報(タイプ0が壁、１が木)
+#------------------------------------------------------------------------------
+BARRIERSET
+	BARRIERTYPE = 0
+	POS = 520 0 600
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 0
+	POS = 520 0 800
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 0
+	POS = 520 0 1000
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = 60 0 1500
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = -10 0 1500
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = 60 0 1650
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = -10 0 1650
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = 60 0 1800
+	ROT = 0 0 0
+END_BARRIERSET
+
+BARRIERSET
+	BARRIERTYPE = 1
+	POS = -10 0 1800
+	ROT = 0 0 0
+END_BARRIERSET
+
+#------------------------------------------------------------------------------
+# 敵の配置情報(タイプ0がクッキー、１がバウムクーヘン)
+#------------------------------------------------------------------------------
+#-----------------------------------------
+# クッキー敵
+#-----------------------------------------
+#------------------------
+# 序盤
+#------------------------
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = 0 0 -400
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -200 0 -600
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = 200 0 -600
+	ROT = 0 0 0
+END_ENEMYSET
+
+#------------------------
+# 中盤
+#------------------------
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -500 0 1600
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -800 0 1600
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -575 0 1450
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -800 0 1300
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 0
+	POS = -575 0 1150
+	ROT = 0 0 0
+END_ENEMYSET
+
+
+#-----------------------------------------
+# バウムクーヘン敵
+#-----------------------------------------
+#------------------------
+# 中盤
+#------------------------
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = -650 0 1600
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = -725 0 1450
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = -650 0 1300
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = -500 0 1300
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = -725 0 1150
+	ROT = 0 0 0
+END_ENEMYSET
+
+#------------------------
+# 中盤2
+#------------------------
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = 750 0 1100
+	ROT = 0 0 0
+END_ENEMYSET
+ 
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = 850 0 1050
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = 950 0 950
+	ROT = 0 0 0
+END_ENEMYSET
+
+ENEMYSET
+	ENEMYTYPE = 1
+	POS = 1050 0 800
+	ROT = 0 0 0
+END_ENEMYSET
+
+
+#------------------------------------------------------------------------------
+# モデル配置情報
+#------------------------------------------------------------------------------
+#-----------------------------------------
+# クッキー床(大)
+#-----------------------------------------
+#------------------------
+# 序盤
+#------------------------
+MODELSET
+	TYPE = 0
+	POS = 0 0 -150
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 0
+	POS = 0 0 50
+	ROT = 0 0 0
+END_MODELSET
+
+#------------------------
+# 終盤
+#------------------------
+MODELSET
+	TYPE = 0
+	POS = 1050 0 2250
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 0
+	POS = 900 0 2500
+	ROT = 0 -40 0
+END_MODELSET
+
+MODELSET
+	TYPE = 0
+	POS = 650 0 2700
+	ROT = 0 -60 0
+END_MODELSET
+
+#-----------------------------------------
+# タルト床
+#-----------------------------------------
+#------------------------
+# 序盤
+#------------------------
+MODELSET
+	TYPE = 1
+	POS = 0 0 300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = 250 0 500
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = -250 0 500
+	ROT = 0 0 0
+END_MODELSET
+
+#------------------------
+# 終盤
+#------------------------
+MODELSET
+	TYPE = 1
+	POS = -800 0 1900
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = -500 0 2100
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = -800 0 2300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 1
+	POS = -500 0 2500
+	ROT = 0 0 0
+END_MODELSET
+
+#-----------------------------------------
+# 柵
+#-----------------------------------------
+
+#-----------------------------------------
+# きのこの山
+#-----------------------------------------
+
+#-----------------------------------------
+# bigキャンディー
+#-----------------------------------------
+MODELSET
+	TYPE = 5
+	POS = 0 -200 2300
+	ROT = 0 -60 0
+END_MODELSET
+
+MODELSET
+	TYPE = 5
+	POS = 0 -200 1700
+	ROT = 0 60 0
+END_MODELSET
+
+MODELSET
+	TYPE = 5
+	POS = 0 -200 1100
+	ROT = 0 -60 0
+END_MODELSET
+
+#-----------------------------------------
+# アイススイカ味
+#-----------------------------------------
+MODELSET
+	TYPE = 6
+	POS = 800 100 -350
+	ROT = 0 0 30
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -800 200 -100
+	ROT = 45 0 60
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 1200 150 -200
+	ROT = 30 45 0
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -850 300 -350
+	ROT = 60 60 30
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -900 200 -200
+	ROT = 10 0 50
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 800 100 -200
+	ROT = 50 30 120
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -500 50 -400
+	ROT = 130 0 75
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 700 250 -600
+	ROT = 200 0 130
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -850 300 -1400
+	ROT = 130 0 30
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -900 200 -600
+	ROT = 10 0 50
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 800 100 -800
+	ROT = 50 30 120
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = -800 50 -400
+	ROT = 130 0 75
+END_MODELSET
+
+MODELSET
+	TYPE = 6
+	POS = 900 250 -600
+	ROT = 120 0 30
+END_MODELSET
+
+-----------------------------------------
+ ガリガリ君
+-----------------------------------------
+MODELSET
+	TYPE = 7
+	POS = 650 300 3200
+	ROT = 30 30 160
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -500 150 3000
+	ROT = 145 0 220
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 700 250 3800
+	ROT = 20 0 130
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -700 100 3400
+	ROT = 60 0 60
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 1000 250 3400
+	ROT = 20 0 20
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -900 200 3200
+	ROT = 60 60 210
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 500 100 3400
+	ROT = 45 0 45
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -800 200 2700
+	ROT = 60 45 160
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 900 300 3100
+	ROT = 220 0 20
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -1100 200 3800
+	ROT = 10 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 1100 100 2900
+	ROT = 145 180 45
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -1200 200 2600
+	ROT = 60 180 75
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 1100 300 3900
+	ROT = 240 140 60
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -900 200 4000
+	ROT = 160 180 0
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = 600 100 4100
+	ROT = 45 30 45
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -450 200 4100
+	ROT = 0 60 75
+END_MODELSET
+
+MODELSET
+	TYPE = 7
+	POS = -400 200 3500
+	ROT = 180 80 75
+END_MODELSET
+
+#-----------------------------------------
+# きのこの山(大)
+#-----------------------------------------
+#------------------------
+# 右一列
+#------------------------
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 -1100
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 -800
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 -500
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 -200
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 100
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 700
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 1000
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 1300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 1600
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 1900
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 2200
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 2500
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 2800
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 3100
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 3400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 3700
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1400 -50 4000
+	ROT = 0 0 0
+END_MODELSET
+
+#------------------------
+# 左一列
+#------------------------
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 -1200
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 -900
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 -600
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 -300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 0
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 600
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 900
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 1200
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 1500
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 1800
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 2100
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 2400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 2700
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 3000
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 3300
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 3600
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -1400 -50 3900
+	ROT = 0 0 0
+END_MODELSET
+
+#------------------------
+# 上一列
+#------------------------
+MODELSET
+	TYPE = 4
+	POS = -1200 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -900 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -600 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -300 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 0 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 300 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 600 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 900 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1200 -50 4400
+	ROT = 0 0 0
+END_MODELSET
+
+#------------------------
+# 下一列
+#------------------------
+MODELSET
+	TYPE = 4
+	POS = -1200 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -900 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -600 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = -300 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 0 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 300 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 600 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 900 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+MODELSET
+	TYPE = 4
+	POS = 1200 -50 -1400
+	ROT = 0 0 0
+END_MODELSET
+
+END_SCRIPT		# この行は絶対消さないこと！

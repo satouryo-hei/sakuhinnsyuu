@@ -1,0 +1,103 @@
+#------------------------------------------------------------------------------
+# モデル数
+#------------------------------------------------------------------------------
+NUM_MODEL = 10
+
+#------------------------------------------------------------------------------
+# モデルファイル名
+#------------------------------------------------------------------------------
+MODEL_FILENAME = data/MODEL/00_KANAKO_body.x		# [0]体
+MODEL_FILENAME = data/MODEL/01_KANAKO_head.x		# [1]頭
+MODEL_FILENAME = data/MODEL/UDE00-.x			# [2]右腕_00
+MODEL_FILENAME = data/MODEL/UDE01-.x			# [3]右腕_01
+MODEL_FILENAME = data/MODEL/UDE00+.x			# [4]左腕_00
+MODEL_FILENAME = data/MODEL/UDE01+.x			# [5]左腕_01
+MODEL_FILENAME = data/MODEL/asi00.x			# [6]右足_00
+MODEL_FILENAME = data/MODEL/asi01.x			# [7]左足_01
+MODEL_FILENAME = data/MODEL/asi00.x			# [6]右足_00
+MODEL_FILENAME = data/MODEL/asi01.x			# [7]左足_01
+
+#------------------------------------------------------------------------------
+# キャラクター情報
+#------------------------------------------------------------------------------
+CHARACTERSET
+	NUM_PARTS = 10					# パーツ数
+	*******************************************************
+	|			ここからペースト↓↓↓↓↓↓↓			  *
+	*******************************************************
+	PARTSSET
+		INDEX = 0
+		PARENT = -1
+		POS = 0.0 28.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 1
+		PARENT = 0
+		POS = 0.3 10.0 2.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 2
+		PARENT = 0
+		POS = -7.0 5.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 3
+		PARENT = 2
+		POS = -9.0 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 4
+		PARENT = 0
+		POS = 7.0 5.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 5
+		PARENT = 4
+		POS = 9.0 0.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 6
+		PARENT = 0
+		POS = -5.0 -10.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+	PARTSSET
+		INDEX = 7
+		PARENT = 6
+		POS = 0.0 -8.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+PARTSSET
+		INDEX = 8
+		PARENT = 0
+		POS = 5.0 -10.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	PARTSSET
+		INDEX = 9
+		PARENT = 8
+		POS = 0.0 -8.0 0.0
+		ROT = 0.0 0.0 0.0
+	END_PARTSSET
+
+	*******************************************************
+	|			ここまでペースト↑↑↑↑↑↑↑			  *
+	*******************************************************
+
+END_CHARACTERSET
+
+END_SCRIPT
