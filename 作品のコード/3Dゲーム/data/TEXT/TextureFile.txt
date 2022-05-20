@@ -1,0 +1,25 @@
+#==============================================================================
+# テクスチャの読み込みファイル[TextureFile.txt]
+# Author : 佐藤瞭平
+#==============================================================================
+SCRIPT 
+#==============================================================================
+# テクスチャの最大数
+#==============================================================================
+NUM_TEXTURE = 10
+
+#==============================================================================
+# テクスチャの情報
+#==============================================================================
+TEXTURE_FILENAME = data/TEXTURE/field002.jpg		#0
+TEXTURE_FILENAME = data/TEXTURE/effect000.jpg		#1
+TEXTURE_FILENAME = data/TEXTURE/sky001.jpg			#2
+TEXTURE_FILENAME = data/TEXTURE/forest.png			#3
+TEXTURE_FILENAME = data/TEXTURE/shadow000.jpg		#4
+TEXTURE_FILENAME = data/TEXTURE/number000.png		#5
+TEXTURE_FILENAME = data/TEXTURE/NewGame.png			#6
+TEXTURE_FILENAME = data/TEXTURE/LodeGame.png		#7
+TEXTURE_FILENAME = data/TEXTURE/Tutorial.png		#8
+TEXTURE_FILENAME = data/TEXTURE/Result.png			#9
+TEXTURE_FILENAME = data/TEXTURE/siro.png			#9
+END_SCRIPT
