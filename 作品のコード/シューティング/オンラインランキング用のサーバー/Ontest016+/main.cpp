@@ -32,6 +32,7 @@ void main(void)
 
 	//ランキングデータ初期化
 	memset(&g_aRankingData[0], 0, sizeof(g_aRankingData));
+	printf("初期化を行いました。\n");
 
 	FILE *pFile = NULL;
 	pFile = fopen(RANKING_TEXT, "r");
@@ -41,6 +42,7 @@ void main(void)
 		for (int nCount = 0; nCount < MAX_RANKING; nCount++)
 		{
 			fscanf(pFile, "%d", &g_aRankingData[nCount]);
+			printf("%dを読み込みました。\n", g_aRankingData[nCount]);
 		}
 	}
 	else
@@ -59,6 +61,8 @@ void main(void)
 		{
 			while (1)
 			{
+				printf("受信待機中・・・です\n");
+
 				CTcpClient*pTcpClient = pTcpListener->Accept();
 
 				if (pTcpClient == NULL)
@@ -104,7 +108,8 @@ void RequestProc(CTcpClient* pTcpClient)
 	memset(&aSendData[0], 0, sizeof(aSendData));
 
 	int nRank = 0;
-
+	int nScore = 0;				//クリアスコアを入れる変数
+	
 	switch (conmmand)
 	{
 	case COMMAND_TYPE_GET_RANKING:
@@ -112,7 +117,7 @@ void RequestProc(CTcpClient* pTcpClient)
 		for (int nRankingData = 0; nRankingData < MAX_RANKING; nRankingData++)
 		{
 			int nData = htonl(g_aRankingData[nRankingData]);
-			memcpy(&aSendData[nRankingData*sizeof(int)], &nData, sizeof(int));
+			memcpy(&aSendData[nRankingData*sizeof(int)], &nData, sizeof(int));		
 		}
 
 		//送信
@@ -122,19 +127,17 @@ void RequestProc(CTcpClient* pTcpClient)
 
 		break;
 
-	case COMMAND_TYPE_SET_RANKING:
-
-		int nTime;				//クリアタイムを入れる変数
+	case COMMAND_TYPE_SET_RANKING:		
 
 		// クリアタイムを(整数型に)エンディアン変換
-		nTime = ntohl(*(int*)&aRecvData[1]);
+		nScore = ntohl(*(int*)&aRecvData[1]);
 
 		// 入れ替え処理
-		Ranking(nTime);
+		Ranking(nScore);
 
 		for (int nRankingData = 0; nRankingData < MAX_RANKING; nRankingData++)
 		{
-			if (g_aRankingData[nRankingData]==nTime)
+			if (g_aRankingData[nRankingData] == nScore)
 			{
 				nRank = nRankingData+1;
 				break;
@@ -171,6 +174,7 @@ void Ranking(int nTimer)
 		if (g_aRankingData[nCnt] < nTimer)
 		{
 			swap(g_aRankingData[nCnt], nTimer);
+			printf("%dと%dを入れ替えました。\n", g_aRankingData[nCnt],nTimer);
 		}
 	}
 
@@ -183,6 +187,7 @@ void Ranking(int nTimer)
 		for (int nCount = 0; nCount < MAX_RANKING; nCount++)
 		{
 			fprintf(pFile, "%d\n", g_aRankingData[nCount]);
+			printf("%dをファイルに書き込みました。\n", g_aRankingData[nCount]);
 		}
 	}
 	else

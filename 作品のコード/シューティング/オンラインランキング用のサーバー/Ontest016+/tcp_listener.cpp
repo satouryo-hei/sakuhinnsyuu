@@ -51,6 +51,7 @@ CTcpClient* CTcpListener::Accept(void)
 	int nLength = sizeof(clientaddr);
 	SOCKET sock = accept(m_sockServer, (struct sockaddr*)&clientaddr, &nLength);
 
+
 	CTcpClient*pTcpClient = new CTcpClient;
 	if (pTcpClient != NULL)
 	{

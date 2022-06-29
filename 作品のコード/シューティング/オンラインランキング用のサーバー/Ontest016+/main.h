@@ -18,7 +18,7 @@
 
 //マクロ定義
 #define PORT_NUMBER (12345)	//ポート番号
-#define RANKING_TEXT "ranking.txt"
+#define RANKING_TEXT "data/TEXT/ranking.txt"
 #define MAX_RANKING (10)
 #define EXIT "exit"		//終了文字
 
