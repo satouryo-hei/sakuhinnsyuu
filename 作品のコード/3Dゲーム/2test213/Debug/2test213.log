@@ -1,0 +1,10 @@
+﻿  choose_game.cpp
+c:\users\student\documents\visual studio 2015\projects\2年\2test213\choose_game.cpp(29): warning C4100: 'Priority': 引数は関数の本体部で 1 度も参照されません。
+c:\users\student\documents\visual studio 2015\projects\2年\2test213\choose_game.cpp(70): warning C4100: 'pos': 引数は関数の本体部で 1 度も参照されません。
+  コードを生成中...
+  コンパイル中...
+  effect.cpp
+c:\users\student\documents\visual studio 2015\projects\2年\2test213\effect.cpp(22): warning C4100: 'Priority': 引数は関数の本体部で 1 度も参照されません。
+  コードを生成中...
+  2test213.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\2年\2test213\Debug\2test213.exe
+  2test213.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\2年\2test213\Debug\2test213.pdb (Full PDB)

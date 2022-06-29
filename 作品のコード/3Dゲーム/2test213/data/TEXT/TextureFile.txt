@@ -1,0 +1,39 @@
+#==============================================================================
+# テクスチャの読み込みファイル[TextureFile.txt]
+# Author : 佐藤瞭平
+#==============================================================================
+SCRIPT 
+#==============================================================================
+# テクスチャの最大数
+#==============================================================================
+NUM_TEXTURE = 24
+
+#==============================================================================
+# テクスチャの情報
+#==============================================================================
+TEXTURE_FILENAME = data/TEXTURE/field002.jpg			#0
+TEXTURE_FILENAME = data/TEXTURE/effect000.jpg			#1
+TEXTURE_FILENAME = data/TEXTURE/sky001.jpg				#2
+TEXTURE_FILENAME = data/TEXTURE/forest.png				#3
+TEXTURE_FILENAME = data/TEXTURE/shadow000.jpg			#4
+TEXTURE_FILENAME = data/TEXTURE/number002.png			#5
+TEXTURE_FILENAME = data/TEXTURE/NewGame.png				#6
+TEXTURE_FILENAME = data/TEXTURE/LoadGame.png			#7
+TEXTURE_FILENAME = data/TEXTURE/Tutorial.png			#8
+TEXTURE_FILENAME = data/TEXTURE/Result.png				#9
+TEXTURE_FILENAME = data/TEXTURE/siro.png				#10
+TEXTURE_FILENAME = data/TEXTURE/Title_Logo(test).png	#11
+TEXTURE_FILENAME = data/TEXTURE/press.png				#12
+TEXTURE_FILENAME = data/TEXTURE/Bullet000.png			#13
+TEXTURE_FILENAME = data/TEXTURE/grayback.png			#14
+TEXTURE_FILENAME = data/TEXTURE/status_logo.png			#15
+TEXTURE_FILENAME = data/TEXTURE/attack_logo.png			#16
+TEXTURE_FILENAME = data/TEXTURE/ex000.png				#17
+TEXTURE_FILENAME = data/TEXTURE/Timer.png				#18
+TEXTURE_FILENAME = data/TEXTURE/New_letter.png			#19
+TEXTURE_FILENAME = data/TEXTURE/Lode_letter.png			#20
+TEXTURE_FILENAME = data/TEXTURE/Tutorial_letter.png		#21
+TEXTURE_FILENAME = data/TEXTURE/Result_letter.png		#22
+TEXTURE_FILENAME = data/TEXTURE/Speech_bubble.png		#23
+TEXTURE_FILENAME = data/TEXTURE/grass.png				#24
+END_SCRIPT
