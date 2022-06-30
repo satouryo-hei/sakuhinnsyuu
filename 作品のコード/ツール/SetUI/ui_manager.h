@@ -40,7 +40,6 @@ public:
 	void SetUI(D3DXVECTOR3 pos, D3DXVECTOR3 size);									// UIの配置関数
 
 	bool GetUse(void) { return m_bUse; }											// 使用状況の取得関数
-	bool GetBoolAnim(void) { return m_bAnim; }										// UIの速さ変更をするか取得関数
 	int GetMax(void) { return m_MaxUI; }											// 最大数取得関数
 
 private:																			// 自分だけがアクセス可能
@@ -67,6 +66,5 @@ private:																			// 自分だけがアクセス可能
 	int m_nTex;																		// 何番目のテクスチャか
 	int m_nLodeUI;																	// 読み込み用のUIの数
 	bool m_bUse;																	// 使用してるか
-	bool m_bAnim;																	// アニメーションにするかどうか
 };
 #endif

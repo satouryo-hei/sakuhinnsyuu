@@ -12,6 +12,7 @@
 #include"ui.h"
 #include"ui_manager.h"
 #include"texture.h"
+#include"imgui_window.h"
 
 //=============================================================================
 // 静的メンバ変数宣言
@@ -20,6 +21,7 @@ CRenderer *CManager::m_pRenderer = NULL;
 CInputKeyboard *CManager::m_InputKeyboard = NULL;
 CUI_Manager *CManager::m_pUi_manager = NULL;
 CTexture *CManager::m_pTexture = NULL;
+CImgui_Window* CManager::m_pImguiWindow = NULL;
 
 //=============================================================================
 // マネージャーのコンストラクタ
@@ -57,6 +59,14 @@ HRESULT CManager::Init(HINSTANCE hInstance,HWND hWnd, bool bWindow)
 		m_InputKeyboard->Init(hInstance, hWnd);
 	}
 
+	// IMGUIのウィンドウの動的メモリの確保
+	m_pImguiWindow = new CImgui_Window;
+	// NULLチェック
+	if (m_pImguiWindow != NULL)
+	{
+		m_pImguiWindow->Init(hWnd, bWindow);
+	}
+
 	// 画像の動的メモリの確保
 	m_pTexture = new CTexture;
 	// NULLチェック
@@ -90,6 +100,17 @@ void CManager::Uninit(void)
 	}
 
 	// NULLチェック
+	if (m_pImguiWindow != NULL)
+	{//ImgUI終了処理
+		m_pImguiWindow->Uninit();
+
+		// 動的メモリの確保したものを解放
+		delete m_pImguiWindow;
+		m_pImguiWindow = NULL;
+	}
+
+
+	// NULLチェック
 	if (m_pTexture != NULL)
 	{
 		// 終了処理
@@ -118,6 +139,13 @@ void CManager::Uninit(void)
 //=============================================================================
 void CManager::Update(void)
 {
+	// NULLチェック
+	if (m_pImguiWindow != NULL)
+	{
+		// IMGUIのウィンドウの更新処理
+		m_pImguiWindow->Update();
+	}
+
 	// NULLチェック
 	if (m_InputKeyboard != NULL)
 	{

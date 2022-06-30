@@ -8,19 +8,14 @@
 #include"input.h"
 #include"manager.h"
 
-/*
-できればimgui(いむぐい)化したい
-*/
-
 //=============================================================================
 // UIのコンストラクタ
 //=============================================================================
-CUi::CUi() : MaxSpeed(50.0f), MinSpeed(1.0f)
+CUi::CUi() : m_fMaxSpeed(50.0f), m_fMinSpeed(1.0f), m_fDiagonalSpeed(0.7f)
 {
 	m_Pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_Speed = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
+	m_Size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	
 	m_col = D3DXCOLOR(255, 255, 255, 255);
 	m_pInputKeyboard = NULL;
 	m_bUse = true;
@@ -63,8 +58,8 @@ HRESULT CUi::Init(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType
 	m_Pos = pos;
 	m_Move = move;
 	m_Size = Size;
-	m_pInputKeyboard = CManager::GetInputKeyboard();
 	LodeAnim();
+	m_pInputKeyboard = CManager::GetInputKeyboard();
 	return S_OK;
 }
 
@@ -81,12 +76,10 @@ void CUi::Uninit(void)
 //=============================================================================
 void CUi::Update(void)
 {	
-
 	if (m_bUse == true)
 	{
 		// 移動するかどうか
-		ChangeMoveUI();
-		
+		ChangeMoveUI();		
 
 		// 大きさの変更させるかどうか
 		ChangeSizeUI();
@@ -110,11 +103,7 @@ void CUi::Update(void)
 		{
 			m_Pos.y = m_Size.y;
 		}
-
-		// 速さを変更させるかどうか
-		ChangeSpeedUI();
-
-		// 速さを変更させるかどうか
+		// アニメーションにさせるかどうか
 		ChangeAnimeUI();
 
 		// Xを押したら
@@ -160,21 +149,21 @@ void CUi::ChangeMoveUI(void)
 			if (m_pInputKeyboard->GetPress(DIK_W) == true)
 			{
 				//左上に移動
-				m_Pos.x += sinf(D3DX_PI*-0.75f)*(m_Move.x*0.7f);
-				m_Pos.y += cosf(D3DX_PI*-0.75f)*(m_Move.y*0.7f);
+				m_Pos.x += sinf(D3DX_PI*-0.75f)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*-0.75f)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			//AとSを押したら
 			else if (m_pInputKeyboard->GetPress(DIK_S) == true)
 			{
 				//左下に移動
-				m_Pos.x += sinf(D3DX_PI*-0.25f)*(m_Move.x*0.7f);
-				m_Pos.y += cosf(D3DX_PI*-0.25f)*(m_Move.y*0.7f);
+				m_Pos.x += sinf(D3DX_PI*-0.25f)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*-0.25f)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			else //Aを押したら
 			{
 				//左に移動
 				m_Pos.x -= m_Move.x;
-			}
+			}						  
 		}
 		else if (m_pInputKeyboard->GetPress(DIK_D) == true)//Dを押した
 		{
@@ -182,15 +171,15 @@ void CUi::ChangeMoveUI(void)
 			if (m_pInputKeyboard->GetPress(DIK_W) == true)
 			{
 				//右上に移動
-				m_Pos.x += sinf(D3DX_PI*0.75f)*(m_Move.x*0.7f);
-				m_Pos.y += cosf(D3DX_PI*0.75f)*(m_Move.y*0.7f);
+				m_Pos.x += sinf(D3DX_PI*0.75f)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*0.75f)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			//DとWを押したら
 			else if (m_pInputKeyboard->GetPress(DIK_S) == true)
 			{
 				//右下に移動
-				m_Pos.x += sinf(D3DX_PI*0.25f)*(m_Move.x*0.7f);
-				m_Pos.y += cosf(D3DX_PI*0.25f)*(m_Move.y*0.7f);
+				m_Pos.x += sinf(D3DX_PI*0.25f)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*0.25f)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			else //Dを押したら
 			{
@@ -211,6 +200,32 @@ void CUi::ChangeMoveUI(void)
 			//下に移動
 			m_Pos.y += m_Move.y;
 		}
+	}
+	//===============================
+	// 速さの最小値の設定
+	//===============================
+	// 横の速さが最小値より小さくになったら
+	if (m_Move.x <= m_fMinSpeed)
+	{
+		m_Move.x = m_fMinSpeed;
+	}
+	// 縦の速さが最小値より小さくになったら
+	else if (m_Move.y <= m_fMinSpeed)
+	{
+		m_Move.y = m_fMinSpeed;
+	}
+	//===============================
+	// 速さの最大値の設定
+	//===============================
+	// 横の速さが最大値より大きくになったら
+	if (m_Move.x >= m_fMaxSpeed)
+	{
+		m_Move.x = m_fMaxSpeed;
+	}
+	// 縦の速さが最大値より大きくになったら
+	else if (m_Move.y >= m_fMaxSpeed)
+	{
+		m_Move.y = m_fMaxSpeed;
 	}
 }
 
@@ -275,110 +290,38 @@ void CUi::ChangeSizeUI(void)
 }
 
 //=============================================================================
-// UIの移動量の制御処理
-//=============================================================================
-void CUi::ChangeSpeedUI(void)
-{
-	// 速さを変更させるかどうか
-	if (m_bSpeed)
-	{
-		//===============================
-		// 移動量の変更
-		//===============================
-		// Fを押したら
-		if (m_pInputKeyboard->GetPress(DIK_F) == true)
-		{
-			m_Move.x += m_Speed.x;
-		}
-		// Hを押したら
-		else if (m_pInputKeyboard->GetPress(DIK_H) == true)
-		{
-			m_Move.x -= m_Speed.x;
-		}
-		// Tを押したら
-		if (m_pInputKeyboard->GetPress(DIK_T) == true)
-		{
-			m_Move.y += m_Speed.y;
-		}
-		// Gを押したら
-		else if (m_pInputKeyboard->GetPress(DIK_G) == true)
-		{
-			m_Move.y -= m_Speed.y;
-		}
-
-		//===============================
-		// 移動量の計算値の変更
-		//===============================
-		// Rを押したら
-		if (m_pInputKeyboard->GetTrigger(DIK_R) == true)
-		{
-			m_Speed.x = 0.1f;
-		}
-		// Yを押したら
-		else if (m_pInputKeyboard->GetTrigger(DIK_Y) == true)
-		{
-			m_Speed.y = 0.1f;
-		}
-		// Vを押したら
-		if (m_pInputKeyboard->GetTrigger(DIK_V) == true)
-		{
-			m_Speed.x = 1.0f;
-		}
-		// Nを押したら
-		else if (m_pInputKeyboard->GetTrigger(DIK_N) == true)
-		{
-			m_Speed.y = 1.0f;
-		}
-
-		//===============================
-		// 速さの最小値の設定
-		//===============================
-		// 横の速さが最小値より小さくになったら
-		if (m_Move.x < MinSpeed)
-		{
-			m_Move.x = MinSpeed;
-		}
-		// 縦の速さが最小値より小さくになったら
-		else if (m_Move.y < MinSpeed)
-		{
-			m_Move.y = MinSpeed;
-		}
-		//===============================
-		// 速さの最大値の設定
-		//===============================
-		// 横の速さが最大値より大きくになったら
-		if (m_Move.x > MaxSpeed)
-		{
-			m_Move.x = MaxSpeed;
-		}
-		// 縦の速さが最大値より大きくになったら
-		else if (m_Move.y > MaxSpeed)
-		{
-			m_Move.y = MaxSpeed;
-		}
-	}
-}
-
-//=============================================================================
 // UIのテクスチャアニメーション処理
 //=============================================================================
 void CUi::ChangeAnimeUI(void)
 {
+	// アニメーションさせるなら
 	if (m_bAnim)
 	{
+		// アニメーションのカウントを進める
 		m_nCounterAnim++;
 
+		// アニメーションのカウントがアニメーションの速さで割って余ったのが0だった時(割り切れた時)
 		if (m_nCounterAnim % m_nAnimeSpeed == 0)
 		{
+			// アニメーションのパターン数を進める
 			m_nPatternAnim++;
 
+			// アニメーションのテクスチャ設定
 			CScene2D::SetTexAnime(m_nPatternAnim, m_fSizeAnimU, m_fMinSizeV, m_fMaxSizeV);
 
+			// アニメーションのパターン数がパターンの最大数を超えたら
 			if (m_nPatternAnim >= m_nMaxPatternAnim)
 			{
+				// アニメーションのパターン数の初期化
+				m_nPatternAnim = 0;
 				return;
 			}
 		}
+	}
+	else
+	{
+		// アニメーション後のテクスチャの割り当てを初期化する
+		CScene2D::SetTex(0,1);
 	}
 }
 

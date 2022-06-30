@@ -11,6 +11,7 @@
 #include"ui_manager.h"
 #include"texture.h"
 #include"input.h"
+#include "imgui_window.h"
 
 //=============================================================================
 // コンストラクタ
@@ -208,6 +209,8 @@ void CRenderer::Draw(void)
 		//ポリゴンの描画処理
 		pScene->DrawAll();
 
+		CManager::GetImguiWindow()->Draw();
+
 		// FPS表示
 		DrawFPS();
 
@@ -248,6 +251,8 @@ void CRenderer::DrawFPS(void)
 void CRenderer::DrawUiInfo(void)
 {
 	CManager *pManager = NULL;
+	char str[512] = {};
+	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	bool bUse = pManager->GetUi_manager()->GetUse();
 
@@ -259,52 +264,15 @@ void CRenderer::DrawUiInfo(void)
 
 			D3DXVECTOR3 Pos = pManager->GetUi_manager()->GetUi(nNumUI)->GetPos();
 			D3DXVECTOR2 Size = pManager->GetUi_manager()->GetUi(nNumUI)->GetSize();
-			D3DXVECTOR3 Move = pManager->GetUi_manager()->GetUi(nNumUI)->GetMove();
-			D3DXVECTOR3 Speed = pManager->GetUi_manager()->GetUi(nNumUI)->GetSpeed();
+			D3DXVECTOR3 Move = pManager->GetUi_manager()->GetUi(nNumUI)->GetMove();			
 			bool bMove = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolMove();
 			bool bSize = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolSize();
 			bool bSpeed = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolSpeed();
 			int nMax = pManager->GetUi_manager()->GetMax();
 
 			int nDiff = LIMITUI - nMax;
-
-			RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-			char str[512];
-
-			int nNum = sprintf(&str[0], "\n位置:(X:%.1f,Y:%.1f,Z:%.1f)\n", Pos.x, Pos.y, Pos.z);
-			nNum += sprintf(&str[nNum], "大きさ[幅：高さ]:(%.1f : %.1f)\n", Size.x, Size.y);
-			nNum += sprintf(&str[nNum], "移動量:(X:%.1f,Y:%.1f,Z:%.1f)\n", Move.x, Move.y, Move.z);
-			nNum += sprintf(&str[nNum], "移動量の加減値:(X:%.1f,Y:%.1f,Z:%.1f)\n", Speed.x, Speed.y, Speed.z);
-			switch (bMove)
-			{
-			case false:
-				nNum += sprintf(&str[nNum], "位置を変更:できない\n");
-				break;
-			case true:
-				nNum += sprintf(&str[nNum], "位置を変更:できる\n");
-				break;
-			}
-			switch (bSize)
-			{
-			case false:
-				nNum += sprintf(&str[nNum], "大きさを変更:できない\n");
-				break;
-			case true:
-				nNum += sprintf(&str[nNum], "大きさを変更:できる\n");
-				break;
-			}
-			switch (bSpeed)
-			{
-			case false:
-				nNum += sprintf(&str[nNum], "移動量を変更:できない\n");
-				break;
-			case true:
-				nNum += sprintf(&str[nNum], "移動量を変更:できる\n");
-				break;
-			}
-			nNum += sprintf(&str[nNum], "現在の個数:(%d)\n", nNumUI);
-			nNum += sprintf(&str[nNum], "現在の最大個数:(%d)\n", nMax);
-			nNum += sprintf(&str[nNum], "限界個数までの個数:(%d)\n", nDiff);
+		
+			int nNum = sprintf(&str[0], "\n現在の個数:(%d)\n", nNumUI);	
 
 			int nWarning = nNum;
 			if (nDiff == 0)
@@ -316,11 +284,17 @@ void CRenderer::DrawUiInfo(void)
 			else
 			{
 				nWarning = 0;
-			}
-
-			// テキスト描画
-			m_pUiFont->DrawText(NULL, str, -1, &rect, DT_LEFT, m_FontCol);
+			}	
 		}
+		else
+		{
+			int nNum = sprintf(&str[0], "\n========================================\n");
+			nNum += sprintf(&str[nNum], "      ※※もうおけないよ！！※※\n");
+			nNum += sprintf(&str[nNum], "========================================\n");
+			nNum += sprintf(&str[nNum], "終了したい場合はESCキーを押してください\n");
+		}
+		// テキスト描画
+		m_pUiFont->DrawText(NULL, str, -1, &rect, DT_LEFT, m_FontCol);
 	}
 }
 
@@ -331,30 +305,8 @@ void CRenderer::DrawUiControl(void)
 {
 	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	char str[1024];
-
-	int nNum = sprintf(&str[0], "UIの操作方法を表示するorしない[1]\n");	
-
-	if (m_bUIControl)
-	{
-		nNum += sprintf(&str[nNum], "==========================================UIの操作方法============================================\n");
-		nNum += sprintf(&str[nNum], "位置の移動([W][A][S][D])\n");
-		nNum += sprintf(&str[nNum], "大きさの変更([Q][E][Z][C])\n");
-		nNum += sprintf(&str[nNum], "移動量の変更(Xを大きく[F] Xを小さく[H] Yを大きく[T] Yを小さく[G])\n");
-		nNum += sprintf(&str[nNum], "移動量の加減値を変更(Xの加減値を0.1に[R] Xの加減値を1.0に[Y] Yの加減値を0.1に[V] Yの加減値を1.0に[N])\n");
-		nNum += sprintf(&str[nNum], "位置を変更できるようにするかしないか:[0]\n");
-		nNum += sprintf(&str[nNum], "大きさを変更できるようにするかしないか:[9]\n");
-		nNum += sprintf(&str[nNum], "移動量を変更できるようにするかしないか:[8]\n");
-		nNum += sprintf(&str[nNum], "アニメーションのUIにするかしないか:[7]\n");
-		nNum += sprintf(&str[nNum], "最大数の増減(増やす:[←] 減らす:[→])\n");
-		nNum += sprintf(&str[nNum], "位置と大きさの初期化:[SPACE]\n");
-		nNum += sprintf(&str[nNum], "移動量の初期化:[X]\n");
-		nNum += sprintf(&str[nNum], "UIを配置:[ENTER]\n");
-		nNum += sprintf(&str[nNum], "UI配置の書き出し:[F9]\n");
-		nNum += sprintf(&str[nNum], "UI配置の読み込み:[F8]\n");
-		nNum += sprintf(&str[nNum], "現在操作中のUiを読み込んだ位置と大きさで配置:[F7]\n");
-		nNum += sprintf(&str[nNum], "すべてのUiを読み込んだ位置と大きさで配置:[F6]\n");
-	}
-	nNum += sprintf(&str[nNum], "========================================\n");
+	
+	int nNum = sprintf(&str[0], "========================================\n");
 	nNum += sprintf(&str[nNum], "UIの書き込みファイル:%s\n", SETUITEXT);
 	nNum += sprintf(&str[nNum], "========================================\n");
 	nNum += sprintf(&str[nNum], "フォントの色の変更:[U][J]\n");
@@ -368,21 +320,8 @@ void CRenderer::DrawUiControl(void)
 //=============================================================================
 void CRenderer::ControlFont(void)
 {
-	// 1を押したら
-	if (CManager::GetInputKeyboard()->GetTrigger(DIK_1) == true)
-	{
-		switch (m_bUIControl)
-		{
-		case true:
-			m_bUIControl = false;
-			break;
-		case false:
-			m_bUIControl = true;
-			break;
-		}
-	}
 	// 2を押したら
-	if (CManager::GetInputKeyboard()->GetTrigger(DIK_2) == true)
+	if (CManager::GetInputKeyboard()->GetTrigger(DIK_F2) == true)
 	{
 		switch (m_bUIFont)
 		{
@@ -453,10 +392,6 @@ void CRenderer::ColorFont(void)
 		m_FontCol = D3DXCOLOR(0, 255, 255, 255);
 		break;
 		
-	case FontCol_BLACK:
-		m_FontCol = D3DXCOLOR(0, 0, 0, 255);
-		break;
-
 	case FontCol_NONE:
 		m_FontCol = D3DXCOLOR(0, 0, 0, 0);
 		break;

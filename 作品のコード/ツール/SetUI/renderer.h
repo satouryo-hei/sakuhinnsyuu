@@ -38,7 +38,6 @@ private:																// 自分だけがアクセス可能
 		FontCol_YELLOW,				// 黄色
 		FontCol_PURPLE,				// 紫
 		FontCol_LIGHT_BLUE,			// 水色
-		FontCol_BLACK,				// 黒
 		FontCol_NONE,				// なし
 		FontCol_MAX					// 最大数
 	} FontCol;

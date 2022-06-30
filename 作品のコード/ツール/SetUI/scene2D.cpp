@@ -199,7 +199,7 @@ void CScene2D::SetColor(D3DXCOLOR col)
 }
 
 //=============================================================================
-// アニメーションのテクスチャ配置処理
+// アニメーションのテクスチャ設定処理
 //=============================================================================
 void CScene2D::SetTexAnime(int nPatternAnim, float fSizeAnimU, float fSizeMinV, float fSizeMaxV)
 {
@@ -214,6 +214,27 @@ void CScene2D::SetTexAnime(int nPatternAnim, float fSizeAnimU, float fSizeMinV, 
 	pVtx[1].tex = D3DXVECTOR2(nPatternAnim*fSizeAnimU + fSizeAnimU, fSizeMinV);
 	pVtx[2].tex = D3DXVECTOR2(nPatternAnim*fSizeAnimU, fSizeMaxV);
 	pVtx[3].tex = D3DXVECTOR2(nPatternAnim*fSizeAnimU + fSizeAnimU, fSizeMaxV);
+
+	//頂点バッファをアンロックする
+	m_pVlxBuff->Unlock();
+}
+
+//=============================================================================
+// テクスチャ設定処理
+//=============================================================================
+void CScene2D::SetTex(float fSizeMin, float fSizeMax)
+{
+	//頂点情報へのポインタ
+	VERTEX_2D*pVtx;
+
+	//頂点バッファをロックし、頂点データへのポインタを取得
+	m_pVlxBuff->Lock(0, 0, (void **)&pVtx, 0);
+
+	//テクスチャ座標
+	pVtx[0].tex = D3DXVECTOR2(fSizeMin, fSizeMin);
+	pVtx[1].tex = D3DXVECTOR2(fSizeMax, fSizeMin);
+	pVtx[2].tex = D3DXVECTOR2(fSizeMin, fSizeMax);
+	pVtx[3].tex = D3DXVECTOR2(fSizeMax, fSizeMax);
 
 	//頂点バッファをアンロックする
 	m_pVlxBuff->Unlock();

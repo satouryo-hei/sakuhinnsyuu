@@ -17,6 +17,7 @@ class CInputKeyboard;
 class CUi;
 class CUI_Manager;
 class CTexture;
+class CImgui_Window;
 
 //*****************************************************************************
 // マネージャークラス
@@ -35,6 +36,7 @@ public:
 	static CInputKeyboard*GetInputKeyboard(void) { return m_InputKeyboard; }	// キーボードクラスのポインタ
 	static CUI_Manager*GetUi_manager(void) { return m_pUi_manager;}				// UIクラスの管理型のポインタ
 	static CTexture *GetTexture(void) { return m_pTexture; }					// テクスチャクラスのポインタ
+	static CImgui_Window* GetImguiWindow(void) { return m_pImguiWindow; }		// Imgui_Windowクラスのポインタ
 
 private:																		// 自分だけがアクセス可能
 																				// メンバ変数
@@ -42,5 +44,6 @@ private:																		// 自分だけがアクセス可能
 	static CInputKeyboard*m_InputKeyboard;										// キーボードのインスタンス生成
 	static CUI_Manager*m_pUi_manager;											// UIクラスのインスタンス生成
 	static CTexture * m_pTexture;												// テクスチャクラスのインスタンス生成
+	static CImgui_Window* m_pImguiWindow;										// Imgui_Windowクラスのポインタ
 };
 #endif

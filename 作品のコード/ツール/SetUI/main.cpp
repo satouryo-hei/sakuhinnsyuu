@@ -6,6 +6,7 @@
 //=============================================================================
 #include "main.h"
 #include"manager.h"
+#include "imgui/imgui.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -13,11 +14,14 @@
 #define CLASS_NAME		"AppClass"			// ウインドウのクラス名
 #define WINDOW_NAME		"UIの設定"	// ウインドウのキャプション名
 
+#define FONT "C:\\Windows\\Fonts\\Meiryo.ttc"	//Imguiのフォント
 //*****************************************************************************
 // プロトタイプ宣言
 //*****************************************************************************
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+// IMGUIの設定
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //*****************************************************************************
 // グローバル変数:
 //*****************************************************************************
@@ -96,6 +100,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
+	// IMGUIの日本語設定
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.Fonts->AddFontFromFileTTF(FONT, 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
+
 	// メッセージループ
 	while (1)
 	{
@@ -168,6 +176,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 //=============================================================================
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+	{
+		return true;
+	}
+
 	switch (uMsg)
 	{
 	case WM_CREATE:
