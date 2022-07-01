@@ -1,8 +1,14 @@
-﻿  renderer.cpp
+﻿  imgui_window.cpp
+  manager.cpp
+  renderer.cpp
+  scene2D.cpp
+  texture.cpp
+  ui.cpp
+  ui_manager.cpp
   コード生成しています。
-  1 of 1215 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  18 of 1214 functions ( 1.5%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   SetUI+.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\SetUI+\Release\SetUI+.exe
   SetUI+.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\SetUI+\Release\SetUI+.pdb (Full PDB)

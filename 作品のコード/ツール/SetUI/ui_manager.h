@@ -40,7 +40,8 @@ public:
 	void SetUI(D3DXVECTOR3 pos, D3DXVECTOR3 size);									// UIの配置関数
 
 	bool GetUse(void) { return m_bUse; }											// 使用状況の取得関数
-	int GetMax(void) { return m_MaxUI; }											// 最大数取得関数
+	int GetMax(void) { return m_nMaxUI; }											// 最大数取得関数
+	void SetMax(int nMax) { (int)m_nMaxUI = nMax; }											// 最大数取得関数
 
 private:																			// 自分だけがアクセス可能
 	inline void SaveUI(void);														// UIの書き込み処理
@@ -54,7 +55,7 @@ private:																			// 自分だけがアクセス可能
 
 	// メンバ変数
 	const int m_MinUI;																// UIの最小値
-	const int m_MaxUI;																// UIの最大値
+	const int m_nMaxUI;																// UIの最大値
 	D3DXVECTOR3 m_Pos;																// 位置
 	D3DXVECTOR3 m_Size;																// 大きさ
 	D3DXVECTOR3 m_Move;																// 移動量

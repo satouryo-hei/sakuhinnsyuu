@@ -26,7 +26,6 @@ CRenderer::CRenderer()
 	m_FontCol = D3DXCOLOR(255,255,255,255);
 	m_FontColType = 0;
 	m_bColorTrigger = false;
-	m_bUIFont = true;
 }
 
 //=============================================================================
@@ -177,9 +176,6 @@ void CRenderer::Uninit(void)
 //=============================================================================
 void CRenderer::Update(void)
 {
-	// 表示切り替え
-	ControlFont();
-
 	// フォントの色切り替え
 	ColorFont();
 
@@ -255,47 +251,32 @@ void CRenderer::DrawUiInfo(void)
 	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	bool bUse = pManager->GetUi_manager()->GetUse();
-
-	if (m_bUIFont)
+	if (bUse)
 	{
-		if (bUse)
+		int nMax = pManager->GetUi_manager()->GetMax();
+		int nDiff = LIMITUI - nMax;
+		int nWarning = 0;
+		if (nDiff == 0)
 		{
-			int nNumUI = pManager->GetUi_manager()->GetNumUI();
-
-			D3DXVECTOR3 Pos = pManager->GetUi_manager()->GetUi(nNumUI)->GetPos();
-			D3DXVECTOR2 Size = pManager->GetUi_manager()->GetUi(nNumUI)->GetSize();
-			D3DXVECTOR3 Move = pManager->GetUi_manager()->GetUi(nNumUI)->GetMove();			
-			bool bMove = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolMove();
-			bool bSize = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolSize();
-			bool bSpeed = pManager->GetUi_manager()->GetUi(nNumUI)->GetBoolSpeed();
-			int nMax = pManager->GetUi_manager()->GetMax();
-
-			int nDiff = LIMITUI - nMax;
-		
-			int nNum = sprintf(&str[0], "\n現在の個数:(%d)\n", nNumUI);	
-
-			int nWarning = nNum;
-			if (nDiff == 0)
-			{
-				nWarning += sprintf(&str[nWarning], "========================================\n");
-				nWarning += sprintf(&str[nWarning], "      ※※もう増やせないよ！！※※\n");
-				nWarning += sprintf(&str[nWarning], "========================================\n");
-			}
-			else
-			{
-				nWarning = 0;
-			}	
+			nWarning += sprintf(&str[nWarning], "========================================\n");
+			nWarning += sprintf(&str[nWarning], "      ※※もう増やせないよ！！※※\n");
+			nWarning += sprintf(&str[nWarning], "========================================\n");
 		}
 		else
 		{
-			int nNum = sprintf(&str[0], "\n========================================\n");
-			nNum += sprintf(&str[nNum], "      ※※もうおけないよ！！※※\n");
-			nNum += sprintf(&str[nNum], "========================================\n");
-			nNum += sprintf(&str[nNum], "終了したい場合はESCキーを押してください\n");
+			nWarning = 0;
 		}
-		// テキスト描画
-		m_pUiFont->DrawText(NULL, str, -1, &rect, DT_LEFT, m_FontCol);
 	}
+	else
+	{
+		int nNum = sprintf(&str[0], "\n========================================\n");
+		nNum += sprintf(&str[nNum], "      ※※もうおけないよ！！※※\n");
+		nNum += sprintf(&str[nNum], "========================================\n");
+		nNum += sprintf(&str[nNum], "終了したい場合はESCキーを押してください\n");
+	}
+	// テキスト描画
+	m_pUiFont->DrawText(NULL, str, -1, &rect, DT_LEFT, m_FontCol);
+
 }
 
 //=============================================================================
@@ -313,26 +294,6 @@ void CRenderer::DrawUiControl(void)
 
 	// テキスト描画
 	m_pUiFont->DrawText(NULL, str, -1, &rect, DT_RIGHT, m_FontCol);
-}
-
-//=============================================================================
-// 操作方法表示の設定
-//=============================================================================
-void CRenderer::ControlFont(void)
-{
-	// 2を押したら
-	if (CManager::GetInputKeyboard()->GetTrigger(DIK_F2) == true)
-	{
-		switch (m_bUIFont)
-		{
-		case true:
-			m_bUIFont = false;
-			break;
-		case false:
-			m_bUIFont = true;
-			break;
-		}
-	}
 }
 
 //=============================================================================

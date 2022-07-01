@@ -24,7 +24,7 @@ int CUI_Manager::m_nAllui = 0;
 //=============================================================================
 // UIのコンストラクタ
 //=============================================================================
-CUI_Manager::CUI_Manager() : CScene(), m_MaxUI(10), m_MinUI(0)
+CUI_Manager::CUI_Manager() : CScene(), m_nMaxUI(10), m_MinUI(0)
 {
 	memset(&m_SavePos, 0, sizeof(m_SavePos));
 	memset(&m_SaveSize, 0, sizeof(m_SaveSize));
@@ -132,31 +132,31 @@ void CUI_Manager::Update(void)
 		// 最大値を増やす
 		if (pInputKeyboard->GetTrigger(DIK_LEFT) == true)
 		{
-			int nMax = m_MaxUI;
+			int nMax = m_nMaxUI;
 			nMax++;
-			(int)m_MaxUI = nMax;
+			(int)m_nMaxUI = nMax;
 
-			if (LIMITUI <=m_MaxUI)
+			if (LIMITUI <=m_nMaxUI)
 			{
-				(int)m_MaxUI = LIMITUI;
+				(int)m_nMaxUI = LIMITUI;
 			}
 		}
 
 		// 最大値を減らす
 		if (pInputKeyboard->GetTrigger(DIK_RIGHT) == true)
 		{
-			int nMin = m_MaxUI;
+			int nMin = m_nMaxUI;
 			nMin--;
-			(int)m_MaxUI = nMin;
+			(int)m_nMaxUI = nMin;
 
-			if (m_MinUI>=m_MaxUI)
+			if (m_MinUI>=m_nMaxUI)
 			{
-				(int)m_MaxUI = m_MinUI;
+				(int)m_nMaxUI = m_MinUI;
 			}
 		}
 
 		// 移動させるかどうか
-		if (pInputKeyboard->GetTrigger(DIK_0) == true)
+		if (pInputKeyboard->GetTrigger(DIK_F1) == true)
 		{
 			if (bMove)
 			{
@@ -170,7 +170,7 @@ void CUI_Manager::Update(void)
 		}
 
 		// 大きさ変更させるかどうか
-		if (pInputKeyboard->GetTrigger(DIK_9) == true)
+		if (pInputKeyboard->GetTrigger(DIK_F2) == true)
 		{
 			if (bSize)
 			{
@@ -184,7 +184,7 @@ void CUI_Manager::Update(void)
 		}
 
 		// 速さ変更させるかどうか
-		if (pInputKeyboard->GetTrigger(DIK_8) == true)
+		if (pInputKeyboard->GetTrigger(DIK_F3) == true)
 		{
 			if (bSpeed)
 			{
@@ -198,7 +198,7 @@ void CUI_Manager::Update(void)
 		}
 
 		// アニメーションさせるかどうか
-		if (pInputKeyboard->GetTrigger(DIK_7) == true)
+		if (pInputKeyboard->GetTrigger(DIK_F4) == true)
 		{
 			if (bAnim)
 			{
@@ -268,7 +268,7 @@ void CUI_Manager::SetUI(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 		m_nAllui++;											// 次のUIを呼び出す
 		m_nTex++;											// 次のテクスチャを設定
 
-		if (m_nAllui < m_MaxUI)								// マックス値までいってなかったら
+		if (m_nAllui < m_nMaxUI)								// マックス値までいってなかったら
 		{
 			// UI生成
 			m_pUi[m_nAllui] = CUi::Create(m_Pos, m_Move, m_Size, m_nTex);

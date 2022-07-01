@@ -22,7 +22,6 @@ public:
 	void Uninit(void);									// ポリゴンの終了関数　
 	void Update(void);									// ポリゴンの更新関数
 	void Draw(void);									// ポリゴンの描画関数
-private:												// 自分だけがアクセス可能
-	static bool m_bUseWindow;							// 使用しているかどうか
+private:												// 自分だけがアクセス可能	
 };
 #endif

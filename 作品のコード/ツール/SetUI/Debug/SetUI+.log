@@ -1,6 +1,12 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (SetUI.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   renderer.cpp
-  imgui_window.cpp
   コードを生成中...
+  コンパイル中...
+  manager.cpp
+  コードを生成中...
+  スキップ中... (関連する変更は検出されませんでした)
+  texture.cpp
+  scene2D.cpp
+  imgui_window.cpp
   SetUI+.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\SetUI+\Debug\SetUI+.exe
   SetUI+.vcxproj -> C:\Users\student\Documents\Visual Studio 2015\Projects\SetUI+\Debug\SetUI+.pdb (Full PDB)

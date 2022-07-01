@@ -44,16 +44,14 @@ private:																// 自分だけがアクセス可能
 
 	void DrawFPS(void);													// FPSの描画関数
 	void DrawUiInfo(void);												// UIの情報描画関数
-	void DrawUiControl(void);											// UIの操作方法描画関数
-	void ControlFont(void);												// 操作方法を表示させるかどうか関数
+	void DrawUiControl(void);											// UIの操作方法描画関数	
 	void ColorFont(void);												// 操作方法を表示させるかどうか関数
 
 	// メンバ変数
 	LPDIRECT3D9	m_pD3D;													// Direct3Dオブジェクト
 	LPDIRECT3DDEVICE9 m_pD3DDevice;										// Deviceオブジェクト(描画に必要)
 	LPD3DXFONT m_pFont;													// フォントへのポインタ
-	LPD3DXFONT m_pUiFont;												// フォントへのポインタ
-	bool m_bUIFont;														// UI情報を表示するかどうか
+	LPD3DXFONT m_pUiFont;												// フォントへのポインタ	
 	bool m_bUIControl;													// 操作方法を表示するかどうか
 	D3DXCOLOR m_FontCol;												// フォントのカラー
 	int m_FontColType;													// フォントのカラーの種類
