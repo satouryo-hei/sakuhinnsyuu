@@ -96,45 +96,58 @@ void CImgui_Window::Update(void)
 	ImGui::End();// 終わり
 
 	// IMGUI開始
-	ImGui::Begin(u8"UI情報");
+	ImGui::Begin(u8"UI情報"); //タイトルテキスト
+	// 使用しているかどうかの取得
 	bool bUse = CManager::GetUi_manager()->GetUse();
 
 	if (bUse)
 	{
+		// 移動できるか
 		bool bMove = CManager::GetUi_manager()->GetUi(nNumUI)->GetBoolMove();
 		ImGui::Checkbox(u8"位置変更", &bMove);
+		// 移動できるなら
 		if (bMove)
 		{
 			D3DXVECTOR3 Pos = CManager::GetUi_manager()->GetUi(nNumUI)->GetPos();
 			ImGui::InputFloat3(u8"位置", Pos);
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetPos(Pos);
 		}
+		// 現在地変更の設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolMove(bMove);
 
+		// 大きさ変更できるか
 		bool bSize = CManager::GetUi_manager()->GetUi(nNumUI)->GetBoolSize();
 		ImGui::Checkbox(u8"大きさ変更", &bSize);
+		// できるなら
 		if (bSize)
 		{
 			D3DXVECTOR3 Size = CManager::GetUi_manager()->GetUi(nNumUI)->GetSize();
 			ImGui::InputFloat2(u8"大きさ", Size);
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetSize(Size);
 		}
+		// 大きさ変更の設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolSize(bSize);
 
+		// 移動量の変更ができるか
 		bool bSpeed = CManager::GetUi_manager()->GetUi(nNumUI)->GetBoolSpeed();
 		ImGui::Checkbox(u8"移動量変更", &bSpeed);
+		// できるなら
 		if (bSpeed)
 		{
 			D3DXVECTOR3 Move = CManager::GetUi_manager()->GetUi(nNumUI)->GetMove();
 			ImGui::InputFloat3(u8"移動量", Move);
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetMove(Move);
 		}
+		// 移動量変更の設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolSpeed(bSpeed);
 
+		// 最大個数の取得
 		int nMax = CManager::GetUi_manager()->GetMax();
 		ImGui::InputInt(u8"現在の最大個数", &nMax);
+		// 最大個数の設定
 		CManager::GetUi_manager()->SetMax(nMax);
 		ImGui::Text(u8"～～～～～ココから変更不可～～～～～");
+		// 差分を計算
 		int nDiff = LIMITUI - nMax;
 		ImGui::InputInt(u8"限界値までの個数", &nDiff);		
 		ImGui::InputInt(u8"現在の個数", &nNumUI);
