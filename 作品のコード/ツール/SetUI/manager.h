@@ -12,11 +12,11 @@
 //*****************************************************************************
 // 前方宣言
 //*****************************************************************************
-class CRenderer;		
-class CInputKeyboard;	
-class CUi;
-class CUI_Manager;
-class CTexture;
+class CRenderer;	
+class CInputKeyboard;
+class CUi;			
+class CUI_Manager;	
+class CTexture;		
 class CImgui_Window;
 
 //*****************************************************************************
@@ -32,11 +32,11 @@ public:
 	void Uninit(void);															// マネージャーの終了関数　
 	void Update(void);															// マネージャーの更新関数
 	void Draw(void);															// マネージャーの描画関数
-	static CRenderer*GetRenderer(void) { return m_pRenderer; }					// CRendererクラスのポインタ
-	static CInputKeyboard*GetInputKeyboard(void) { return m_InputKeyboard; }	// キーボードクラスのポインタ
-	static CUI_Manager*GetUi_manager(void) { return m_pUi_manager;}				// UIクラスの管理型のポインタ
-	static CTexture *GetTexture(void) { return m_pTexture; }					// テクスチャクラスのポインタ
-	static CImgui_Window* GetImguiWindow(void) { return m_pImguiWindow; }		// Imgui_Windowクラスのポインタ
+	static CRenderer*GetRenderer(void) { return m_pRenderer; }					// CRendererクラスの取得処理
+	static CInputKeyboard*GetInputKeyboard(void) { return m_InputKeyboard; }	// キーボードクラスの取得処理
+	static CUI_Manager*GetUi_manager(void) { return m_pUi_manager;}				// UIクラスの管理型の取得処理
+	static CTexture *GetTexture(void) { return m_pTexture; }					// テクスチャクラスの取得処理
+	static CImgui_Window* GetImguiWindow(void) { return m_pImguiWindow; }		// Imgui_Windowクラスの取得処理
 
 private:																		// 自分だけがアクセス可能
 																				// メンバ変数
@@ -44,6 +44,6 @@ private:																		// 自分だけがアクセス可能
 	static CInputKeyboard*m_InputKeyboard;										// キーボードのインスタンス生成
 	static CUI_Manager*m_pUi_manager;											// UIクラスのインスタンス生成
 	static CTexture * m_pTexture;												// テクスチャクラスのインスタンス生成
-	static CImgui_Window* m_pImguiWindow;										// Imgui_Windowクラスのポインタ
+	static CImgui_Window* m_pImguiWindow;										// Imgui_Windowクラスのインスタンス生成
 };
 #endif

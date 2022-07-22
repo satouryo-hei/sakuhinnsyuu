@@ -21,10 +21,9 @@ CRenderer::CRenderer()
 	m_pD3D = NULL;
 	m_pD3DDevice = NULL;
 	m_pFont = NULL;
-	m_pUiFont = NULL;
-	m_bUIControl = false;
+	m_pUiFont = NULL;	
 	m_FontCol = D3DXCOLOR(255,255,255,255);
-	m_FontColType = 0;
+	m_nFontColType = 0;
 	m_bColorTrigger = false;
 }
 
@@ -306,25 +305,25 @@ void CRenderer::ColorFont(void)
 	//-----------------------------------------------------------------------------
 	if (CManager::GetInputKeyboard()->GetTrigger(DIK_U) == true)
 	{
-		m_FontColType++;
-		if (m_FontColType > FontCol_NONE)
+		m_nFontColType++;
+		if (m_nFontColType > FontCol_NONE)
 		{
-			m_FontColType = FontCol_WHITE;
+			m_nFontColType = FontCol_WHITE;
 		}
 	}
 	else if (CManager::GetInputKeyboard()->GetTrigger(DIK_J) == true)
 	{
-		m_FontColType--;
-		if (m_FontColType < FontCol_WHITE)
+		m_nFontColType--;
+		if (m_nFontColType < FontCol_WHITE)
 		{
-			m_FontColType = FontCol_NONE;
+			m_nFontColType = FontCol_NONE;
 		}
 	}
 
 	//-----------------------------------------------------------------------------
 	// F‚ÌØ‚è‘Ö‚¦
 	//-----------------------------------------------------------------------------
-	switch (m_FontColType)
+	switch (m_nFontColType)
 	{
 	case FontCol_WHITE:
 		m_FontCol = D3DXCOLOR(255, 255, 255, 255);

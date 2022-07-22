@@ -21,9 +21,9 @@
 class CInput
 {
 public:														// 誰でもアクセス可能
-	CInput();												// コンストラクタ
-	virtual ~CInput();										// デストラクタ
-															// メンバ関数
+	CInput();												// 入力のコンストラクタ
+	virtual ~CInput();										// 入力のデストラクタ
+	// メンバ関数
 	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd);	// 入力の初期化関数
 	virtual void Uninit(void);								// 入力の終了関数　
 	virtual void Update(void) = 0;							// 入力の更新関数
@@ -41,8 +41,8 @@ protected:
 class CInputKeyboard : public CInput
 {
 public:				
-	CInputKeyboard();									// コンストラクタ
-	~CInputKeyboard();									// デストラクタ
+	CInputKeyboard();									// キーボードのコンストラクタ
+	~CInputKeyboard();									// キーボードのデストラクタ
 
 	// メンバ関数
 	HRESULT Init(HINSTANCE hInstance, HWND hWnd);		// キーボードの初期化関数
