@@ -6,20 +6,23 @@ SCRIPT
 #==============================================================================
 # テクスチャの最大数
 #==============================================================================
-NUM_TEXTURE = 11
+NUM_TEXTURE = 14
 
 #==============================================================================
 # テクスチャの情報
 #==============================================================================
-TEXTURE_FILENAME = data/TEXTURE/field002.jpg	 #0
-TEXTURE_FILENAME = data/TEXTURE/effect000.jpg	 #1
-TEXTURE_FILENAME = data/TEXTURE/sky001.jpg		 #2
-TEXTURE_FILENAME = data/TEXTURE/forest.png		 #3
-TEXTURE_FILENAME = data/TEXTURE/shadow000.jpg	 #4
-TEXTURE_FILENAME = data/TEXTURE/number000.png	 #5
-TEXTURE_FILENAME = data/TEXTURE/bullet000.png	 #6
-TEXTURE_FILENAME = data/TEXTURE/blackblock.jpg	 #7
-TEXTURE_FILENAME = data/TEXTURE/ex000.png		 #8
-TEXTURE_FILENAME = data/TEXTURE/explosion000.png #9
-TEXTURE_FILENAME = data/TEXTURE/push.png 		 #10
+TEXTURE_FILENAME = data/TEXTURE/field002.jpg	 #1枚目のテクスチャ[0]
+TEXTURE_FILENAME = data/TEXTURE/effect000.jpg	 #2枚目のテクスチャ[1]
+TEXTURE_FILENAME = data/TEXTURE/sky001.jpg		 #3枚目のテクスチャ[2]
+TEXTURE_FILENAME = data/TEXTURE/forest.png		 #4枚目のテクスチャ[3]
+TEXTURE_FILENAME = data/TEXTURE/shadow000.jpg	 #5枚目のテクスチャ[4]
+TEXTURE_FILENAME = data/TEXTURE/number000.png	 #6枚目のテクスチャ[5]
+TEXTURE_FILENAME = data/TEXTURE/bullet000.png	 #7枚目のテクスチャ[6]
+TEXTURE_FILENAME = data/TEXTURE/blackblock.jpg	 #8枚目のテクスチャ[7]
+TEXTURE_FILENAME = data/TEXTURE/ex000.png		 #9枚目のテクスチャ[8]
+TEXTURE_FILENAME = data/TEXTURE/explosion000.png #10枚目のテクスチャ[9]
+TEXTURE_FILENAME = data/TEXTURE/push.png 		 #11枚目のテクスチャ[10]
+TEXTURE_FILENAME = data/TEXTURE/effect001.png 	 #12枚目のテクスチャ[11]
+TEXTURE_FILENAME = data/TEXTURE/dooranime.png 	 #13枚目のテクスチャ[12]
+TEXTURE_FILENAME = data/TEXTURE/2DSTART.png 	 #14枚目のテクスチャ[13]
 END_SCRIPT
