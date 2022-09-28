@@ -20,16 +20,15 @@
 // 静的メンバ関数の宣言
 //=============================================================================
 LPDIRECT3DTEXTURE9 CHoming::m_pTexture = NULL;
-bool CHoming::m_bUse = false;
 
 //=============================================================================
 // 弾のコンストラクタ
 //=============================================================================
-CHoming::CHoming(int nPriority) : CScene2D(PRIORITY_BULLET)
+CHoming::CHoming(int nPriority) : CScene2D(PRIORITY_H_BULLET)
 {
 	m_Move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Size = D3DXVECTOR2(0.0f, 0.0f);
-
+	m_bUse = false;
 	memset(&m_Homing, 0, sizeof(m_Homing));
 	m_nPriority = nPriority;
 
@@ -60,9 +59,9 @@ CHoming *CHoming::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR2 Size, D3
 		pHoming->Init(pos, Size);
 		pHoming->m_Move = move;
 		pHoming->Bindtexture(6);
+		pHoming->m_bUse = false;
 		pHoming->m_Homing.dPoint3[0] = (int)lastPoint.x;
 		pHoming->m_Homing.dPoint3[1] = (int)lastPoint.y;
-		pHoming->m_bUse = false;
 	}
 
 	return pHoming;
@@ -81,14 +80,13 @@ HRESULT CHoming::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 	m_Pos = pos;
 	m_Size = Size;	
 
-	m_Homing.dNum = 0;
 	m_Homing.nCounter = 0;		
 	m_Homing.nDivNum = 50;
 	m_Homing.dPoint0[0] = m_Pos.x;
 	m_Homing.dPoint0[1] = m_Pos.y;
-	m_Homing.dPoint1[0] = rand() % 640;
+	m_Homing.dPoint1[0] = rand() % 1280;
 	m_Homing.dPoint1[1] = 640;
-	m_Homing.dPoint2[0] = 640;
+	m_Homing.dPoint2[0] = rand() % 640;
 	m_Homing.dPoint2[1] = 120;
 	
 	return S_OK;
@@ -150,7 +148,7 @@ void CHoming::Update(void)
 	SetPosition(m_Pos);
 	if (m_Homing.nCounter >= 2)
 	{
-		CEffect::Create(m_Pos, m_Size, D3DXVECTOR2(0.1f, 0.1f), D3DXCOLOR(10, 15, 40, 10));
+		CEffect::Create(m_Pos, m_Size, D3DXVECTOR2(0.1f, 0.1f), D3DXCOLOR(10, 15, 40, 10),1);
 	}
 
 

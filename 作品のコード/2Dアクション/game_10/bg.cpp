@@ -64,11 +64,11 @@ HRESULT CBg::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size,int nTex)
 //=============================================================================
 void CBg::Uninit(void)
 {
-	if (m_apScene2D != NULL)
-	{
-		m_apScene2D->Uninit();
-		m_apScene2D = NULL;
-	}
+	//if (m_apScene2D != NULL)
+	//{
+	//	m_apScene2D->Uninit();
+	//	m_apScene2D = NULL;
+	//}
 
 }
 

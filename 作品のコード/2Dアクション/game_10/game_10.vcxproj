@@ -151,16 +151,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attack_up.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="billeffect.cpp" />
     <ClCompile Include="block.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="explosion.cpp" />
+    <ClCompile Include="facialui.cpp" />
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="homing.cpp" />
-    <ClCompile Include="bullet03.cpp" />
+    <ClCompile Include="keyui.cpp" />
+    <ClCompile Include="logo.cpp" />
+    <ClCompile Include="nextbutton.cpp" />
+    <ClCompile Include="ranking.cpp" />
+    <ClCompile Include="shotgun.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="choose_game.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -169,7 +174,6 @@
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="item.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="manager.cpp" />
@@ -189,25 +193,34 @@
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="scene2D.cpp" />
     <ClCompile Include="scene3D.cpp" />
+    <ClCompile Include="score.cpp" />
     <ClCompile Include="select.cpp" />
-    <ClCompile Include="stage.cpp" />
-    <ClCompile Include="stage001.cpp" />
+    <ClCompile Include="stage_tutorial.cpp" />
+    <ClCompile Include="stage_top.cpp" />
+    <ClCompile Include="stage002.cpp" />
+    <ClCompile Include="stage_manager.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="attack_up.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="bg.h" />
     <ClInclude Include="billeffect.h" />
     <ClInclude Include="block.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="explosion.h" />
+    <ClInclude Include="facialui.h" />
     <ClInclude Include="goal.h" />
     <ClInclude Include="homing.h" />
-    <ClInclude Include="bullet03.h" />
+    <ClInclude Include="keyui.h" />
+    <ClInclude Include="logo.h" />
+    <ClInclude Include="nextbutton.h" />
+    <ClInclude Include="ranking.h" />
+    <ClInclude Include="shotgun.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="choose_game.h" />
     <ClInclude Include="effect.h" />
@@ -216,7 +229,6 @@
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="item.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="manager.h" />
@@ -236,12 +248,16 @@
     <ClInclude Include="scene.h" />
     <ClInclude Include="scene2D.h" />
     <ClInclude Include="scene3D.h" />
+    <ClInclude Include="score.h" />
     <ClInclude Include="select.h" />
-    <ClInclude Include="stage.h" />
-    <ClInclude Include="stage001.h" />
+    <ClInclude Include="stage_tutorial.h" />
+    <ClInclude Include="stage_top.h" />
+    <ClInclude Include="stage002.h" />
+    <ClInclude Include="stage_manager.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="title.h" />
+    <ClInclude Include="tutorial.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

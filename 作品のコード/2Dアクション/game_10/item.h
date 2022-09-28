@@ -15,27 +15,17 @@
 class CItem : public CScene2D
 {
 public:																// 誰でもアクセス可能
-	typedef enum 
-	{
-		ITEM_NONE = 0,
-		ITEM_ATTACK,
-		ITEM_LIFE,
-		ITEM_MAX
-	} ITEM;
-
-	CItem(int nPriority = PRIORITY_NOMAL);							// コンストラクタ
+	CItem(int nPriority = PRIORITY_ITEM);							// コンストラクタ
 	~CItem();														// デストラクタ
-	// メンバ関数
+																	// メンバ関数
 	static CItem *Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size);		// 時間の生成
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size);				// 時間の初期化関数
 	void Uninit(void);												// 時間の終了関数
 	void Update(void);												// 時間の更新関数
 	void Draw(void);												// 時間の描画関数
 
-private:															// 自分だけがアクセス可能	
-	ITEM item;
-	int m_nAttack;
-	int m_Life;
-
+private:															// 自分だけがアクセス可能
+	D3DXVECTOR3 m_pos;
+	D3DXVECTOR2 m_size;
 };
 #endif

@@ -14,13 +14,14 @@
 class CBg;
 class CTimer;
 class CPlayer;
-class CAttack_up;
+class CItem;
 class CMeshField;
 class CMeshSky;
 class CWall;
-class CStage_Tutorial;
+class CStage_Top;
 class CEnemy02;
 class CGoal;
+class CScore;
 
 //*****************************************************************************
 // ゲームのクラス
@@ -43,19 +44,21 @@ public:
 	static CMeshField*GetMeshField(void) { return m_pMeshField; }				// メッシュフィールドのポインターを取得
 	static CMeshSky*GetMeshSky(void) { return m_pMeshSky; }						// 空のポインターを取得
 	static CEnemy02*GetEnemy(void) { return m_pEnemy; }						// 空のポインターを取得
+	static CScore*GetScore(void) { return m_pScore; }						// 空のポインターを取得
 
 
 private:																		// 自分だけがアクセス可能		
 	static CBg *m_pBg;															// 背景のポインター
 	static CTimer* m_pTimer;													// タイマーのポインター
 	static CPlayer* m_pPlayer;													// プレイヤーのポインター
-	static CAttack_up* m_pAttack_up;											// 
+	static CItem* m_pAttack_up;											// 攻撃力アップのポインター
 	static CMeshField * m_pMeshField;											// メッシュフィールドのポインター
 	static CMeshSky * m_pMeshSky;												// 空のポインター
 	static CWall * m_pWall;											// 壁のポインター
-	static CStage_Tutorial * m_pStage;											// 壁のポインター
-	static CEnemy02* m_pEnemy;
-	static CGoal * m_pGoal;
+	static CStage_Top * m_pStage;											// ステージのポインター
+	static CEnemy02* m_pEnemy;													// 敵のポインター
+	static CGoal * m_pGoal;														// ゴールのポインター
+	static CScore * m_pScore;														// ゴールのポインター	
 	static bool m_bRanking;														// ランキングをさせるかどうか
 	bool m_bUse;																// 使っているかどうか
 	bool m_bFade;																// 遷移したかどうか

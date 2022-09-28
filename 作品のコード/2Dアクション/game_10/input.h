@@ -20,11 +20,11 @@
 class CInput
 {
 public:
-	CInput();
-	virtual ~CInput();
-	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd);
-	virtual void Uninit(void);
-	virtual void Update(void) = 0;
+	CInput();												// コンストラクタ
+	virtual ~CInput();										// デストラクタ
+	virtual HRESULT Init(HINSTANCE hInstance, HWND hWnd);	// 入力の初期化処理
+	virtual void Uninit(void);								// 入力の終了処理
+	virtual void Update(void) = 0;							// 入力の更新処理
 
 protected:
 	LPDIRECTINPUTDEVICE8 m_pDevice; //入力デバイス(キーボード)へのポインタ
@@ -38,20 +38,20 @@ protected:
 class CInputKeyboard : public CInput
 {
 public:
-	CInputKeyboard();
-	~CInputKeyboard();
-
-	HRESULT Init(HINSTANCE hInstance, HWND hWnd);
-	void Uninit(void);
-	void Update(void);
-	bool GetPress(int nKey);
-	bool GetTrigger(int nKey);
-	bool GetRelease(int nKey);
+	CInputKeyboard();								// コンストラクタ
+	~CInputKeyboard();								// デストラクタ
+	
+	HRESULT Init(HINSTANCE hInstance, HWND hWnd);	// キーボードの入力の初期化処理
+	void Uninit(void);								// キーボードの入力の終了処理
+	void Update(void);								// キーボードの入力の更新
+	bool GetPress(int nKey);						// 押しているキー情報の取得
+	bool GetTrigger(int nKey);						// 押されていたキー情報の取得
+	bool GetRelease(int nKey);						// 離したキー情報の取得
 
 private:
-	BYTE m_aKeyState[NUM_KEY_MAX]; //キーボードの入力情報(プレス情報)
-	BYTE m_aKeyStateTrigger[NUM_KEY_MAX];
-	BYTE m_aKeyStateRelease[NUM_KEY_MAX];
+	BYTE m_aKeyState[NUM_KEY_MAX];			// キーボードの入力情報(押されている情報)
+	BYTE m_aKeyStateTrigger[NUM_KEY_MAX];	// キーボードの入力情報(押されていた情報)
+	BYTE m_aKeyStateRelease[NUM_KEY_MAX];	// キーボードの入力情報(リリース情報)
 };
 
 #endif// _INPUT_H_//ifndefとセット（必ず一番下

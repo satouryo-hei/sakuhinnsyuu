@@ -117,13 +117,6 @@ HRESULT CNumber::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 //=============================================================================
 void CNumber::Uninit(void)
 {
-	//テクスチャの破棄
-	if (m_pTexture != NULL)
-	{
-		m_pTexture->Release();
-		m_pTexture = NULL;
-	}
-
 	//バッファの破棄
 	if (m_pVlxBuff != NULL)
 	{

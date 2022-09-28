@@ -77,7 +77,7 @@ HRESULT CChoose_Game::Init(D3DXVECTOR3 pos)
 	for (int nCnt = 0; nCnt < CHOOSE_MAX; nCnt++)
 	{	
 		// エフェクトの生成処理の呼び出し
-		m_pPolygon[nCnt] = CPolygon::Create(m_LodePos[nCnt], m_LodeSize[nCnt], 100);					
+		m_pPolygon[nCnt] = CPolygon::Create(m_LodePos[nCnt], m_LodeSize[nCnt], 19+ nCnt);
 	}
 
 	// ランダムで番号を決める
@@ -140,7 +140,7 @@ void CChoose_Game::Update(void)
 	
 	// 選択されているものの色を鮮明にする
 	m_pPolygon[m_nSituation]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-	m_pPolygonEffect->Setpos(m_LodePos[m_nSituation]);
+	m_pPolygonEffect->SetPos(m_LodePos[m_nSituation]);
 
 	// 選択された時の処理
 	switch (m_nSituation)
@@ -183,7 +183,7 @@ void CChoose_Game::Update(void)
 		if (CManager::GetInputKeyboard()->GetTrigger(DIK_RETURN) == true && m_bFade)
 		{	
 			// チュートリアル画面に遷移
-			CFade::SetFade(CManager::MODE_TITLE);
+			CFade::SetFade(CManager::MODE_TUTORIAL);
 			// 連続でフェード遷移をさせないようにする
 			m_bFade = false;
 			// ゲームに遷移してないって教える

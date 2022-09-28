@@ -24,14 +24,14 @@ public:																// 誰でもアクセス可能
 	// ゲームの選択種類
 	typedef enum 
 	{
-		CHOOSE_NEWGAME = 0,
-		CHOOSE_CONTINUE,
-		CHOOSE_TUTORIAL,
-		CHOOSE_RESULT,
-		CHOOSE_MAX
+		CHOOSE_NEWGAME = 0,											// 新しく始める
+		CHOOSE_CONTINUE,											// 続きから
+		CHOOSE_TUTORIAL,											// チュートリアル
+		CHOOSE_RESULT,												// リザルト
+		CHOOSE_MAX													// ゲームの選択全種類
 	} CHOOSE;
 
-	CChoose_Game(PRIORITY Priority = PRIORITY_UI);				// コンストラクタ
+	CChoose_Game(PRIORITY Priority = PRIORITY_UI);					// コンストラクタ
 	~CChoose_Game();												// デストラクタ
 	// メンバ関数
 	static CChoose_Game *Create(D3DXVECTOR3 pos);					// ゲームの選択の生成

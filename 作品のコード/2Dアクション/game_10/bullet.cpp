@@ -12,6 +12,7 @@
 #include"effect.h"
 #include"noneblock.h"
 #include"explosion.h"
+#include"enemy02.h"
 
 /*やりたいこと*/
 /*弾の回転　←いるのか？
@@ -21,7 +22,7 @@
 ////=============================================================================
 //// 静的メンバ関数の宣言
 ////=============================================================================
-//bool CBullet::m_bUse = false;
+//bool CBullet::m_bAlive = false;
 
 //=============================================================================
 // 弾のコンストラクタ
@@ -32,7 +33,8 @@ CBullet::CBullet(int nPriority) : CScene2D(PRIORITY_BULLET)
 	m_Size = D3DXVECTOR2(0.0f, 0.0f);
 	m_nLife = 0;
 	m_bEffect = true;
-	//m_bUse = false;
+	m_nAttack = 0;
+	//m_bAlive = false;
 }
 
 
@@ -73,7 +75,7 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR2 Size, in
 HRESULT CBullet::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 {
 	CScene2D::Init(pos, Size);
-	
+	m_nAttack = CPlayer::GetItem();
 	int nItem = CPlayer::GetItem();
 	m_nLife += nItem;
 	m_Pos = pos;
@@ -101,17 +103,11 @@ void CBullet::Uninit(void)
 //=============================================================================
 void CBullet::Update(void)
 {
-	if (m_bUse)
-	{
-		Uninit();
-		return;
-	}
-
 	m_PosOld = m_Pos;
 	
 	if (m_bEffect)
 	{
-		CEffect::Create(m_Pos, m_Size, D3DXVECTOR2(1.0f, 1.0f), D3DXCOLOR(0, 0, 0, 20));
+		CEffect::Create(m_Pos, m_Size, D3DXVECTOR2(1.0f, 1.0f), D3DXCOLOR(0, 0, 0, 20),1);
 	}
 
 	m_Pos += m_Move;
@@ -136,11 +132,11 @@ void CBullet::Update(void)
 	}
 	//if (m_Pos.y >= SCREEN_HEIGHT - (m_Size.y / 2))
 	//{
-	//	m_bUse = true;
+	//	m_bAlive = true;
 	//}
 	//else if (m_Pos.y <= (m_Size.y / 2))
 	//{
-	//	m_bUse = true;
+	//	m_bAlive = true;
 	//}
 
 	////=============================================================================
@@ -176,8 +172,13 @@ void CBullet::Update(void)
 	//		}
 	//	}
 	//}
-	//BlockColision();
+	EnemyColision();
 
+	if (m_bUse)
+	{
+		Uninit();
+		return;
+	}
 	CScene2D::Update();
 
 }// ポリゴンの更新処理終了
@@ -196,23 +197,23 @@ void CBullet::Draw(void)
 	//=============================================================================
 	// ブロックと弾の当たり判定
 	//=============================================================================
-void CBullet::BlockColision()
+void CBullet::EnemyColision()
 {
-	CScene * pScene = CScene::GetScene(CScene::PRIORITY_BLOCK);
+	CScene * pScene = CScene::GetScene(CScene::PRIORITY_ENEMY);
 
-	if(pScene != NULL)
+	while (pScene != NULL)
 	{
-		CNoneBlock *pBlock = (CNoneBlock*)pScene;
+		CEnemy02 *pBlock = (CEnemy02*)pScene;
 
-		if (m_Pos.x >= pBlock->GetPosition().x - pBlock->GetSize().x &&
-			m_Pos.x <= pBlock->GetPosition().x + pBlock->GetSize().x &&
-			m_Pos.y >= pBlock->GetPosition().y - pBlock->GetSize().y &&
-			m_Pos.y <= pBlock->GetPosition().y + pBlock->GetSize().y)
-		{
-			if (pBlock->GetPosition().y - pBlock->GetSize().y >= m_PosOld.y + m_Size.y)						//ブロックの上部
-			{
-				m_bUse = true;
-			}			
+		if (m_Pos.x + m_Size.x >= pBlock->GetPosition().x - pBlock->GetSize().x &&
+			m_Pos.x - m_Size.x <= pBlock->GetPosition().x + pBlock->GetSize().x &&
+			m_Pos.y + m_Size.y >= pBlock->GetPosition().y - pBlock->GetSize().y &&
+			m_Pos.y - m_Size.y <= pBlock->GetPosition().y + pBlock->GetSize().y)
+		{			
+			m_bUse = true;					
 		}
+		// ブロックオブジェクトの次のオブジェクトを取得
+		CScene * pSceneNext = CScene::GetNext(pScene);
+		pScene = pSceneNext;
 	}
 }

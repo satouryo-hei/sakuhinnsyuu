@@ -27,6 +27,7 @@ public:																				// 誰でもアクセス可能
 private:																			// 自分だけがアクセス可能	
 	int m_nCounterAnim;																// アニメーションカウンタ
 	int m_nPatternAnim;																// アニメーションパターンNo
+	bool m_bUse;
 
 };
 #endif

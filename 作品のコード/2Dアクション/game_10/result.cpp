@@ -10,11 +10,13 @@
 #include"input.h"
 #include"bg.h"
 #include"fade.h"
+#include"ranking.h"
 
 //=============================================================================
 // 静的メンバ変数の宣言
 //=============================================================================
 CBg* CResult::m_pBg = NULL;
+CRanking* CResult::m_pRanking = NULL;
 
 //=============================================================================
 // リザルトのコンストラクタ
@@ -36,7 +38,8 @@ CResult::~CResult()
 //=============================================================================
 HRESULT CResult::Init(D3DXVECTOR3 pos)
 {
-	m_pBg = CBg::Create(pos, D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT), 3);
+	m_pBg = CBg::Create(pos, D3DXVECTOR2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2), 18);
+	m_pRanking = CRanking::Create(pos, D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT));
 	return S_OK;
 }
 
@@ -45,6 +48,7 @@ HRESULT CResult::Init(D3DXVECTOR3 pos)
 //=============================================================================
 void CResult::Uninit(void)
 {
+	// 解放処理
 	CScene::Release();
 
 	if (m_pBg != NULL)

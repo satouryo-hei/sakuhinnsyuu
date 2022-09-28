@@ -18,7 +18,7 @@ public:																				// 誰でもアクセス可能
 	CEffect(int nPriority = PRIORITY_EFFECT);										// コンストラクタ
 	~CEffect();																		// デストラクタ
 																// メンバ関数
-	static CEffect *Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size,D3DXVECTOR2 AddSize, D3DXCOLOR m_AddCol);	// エフェクトの生成
+	static CEffect *Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size,D3DXVECTOR2 AddSize, D3DXCOLOR m_AddCol,int nTex);	// エフェクトの生成
 	HRESULT Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size);								// エフェクトの初期化関数
 	void Uninit(void);																// エフェクトの終了関数
 	void Update(void);																// エフェクトの更新関数

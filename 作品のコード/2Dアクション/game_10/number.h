@@ -31,5 +31,12 @@ private:																	// 自分だけがアクセス可能
 	LPDIRECT3DVERTEXBUFFER9 m_pVlxBuff;										// 頂点バッファへのポインタ
 
 };
+
+//累乗処理(同じ型同士)※9回以下のみ使用可能※
+template<class T> T Exponentiation(T data0, T data1)
+{
+	T Answer = pow(data0, data1);
+	return Answer;
+}
 #endif
 

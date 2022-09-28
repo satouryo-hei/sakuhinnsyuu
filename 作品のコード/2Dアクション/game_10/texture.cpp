@@ -45,7 +45,7 @@ HRESULT CTexture::Init(void)
 //=============================================================================
 void CTexture::Uninit(void)
 {
-	for (int nCntTexture = 0; nCntTexture < m_nMaxTex; nCntTexture++)
+	for (int nCntTexture = 0; nCntTexture < MAX_TEXTURE; nCntTexture++)
 	{
 		//テクスチャの破棄
 		if (m_pTexture[nCntTexture] != NULL)

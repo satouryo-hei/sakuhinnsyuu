@@ -27,8 +27,8 @@ public:																					// 誰でもアクセス可能
 	static void SetUse(bool bUse) { m_bUse = bUse; }
 private:																				// 自分だけがアクセス可能
 	D3DXVECTOR3 m_Pos;																	// 現在の位置
-	static bool m_bUse;																	// 
-	int m_nPatternAnim;																	// 
-	int	m_nCounterAnim;																	// 
+	static bool m_bUse;																	// 使っているかどうか
+	int m_nPatternAnim;																	// パターンアニメーション
+	int	m_nCounterAnim;																	// カウンターアニメーション
 };
 #endif

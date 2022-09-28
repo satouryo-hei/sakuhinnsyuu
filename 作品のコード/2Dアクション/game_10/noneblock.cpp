@@ -60,7 +60,7 @@ HRESULT CNoneBlock::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 //=============================================================================
 void CNoneBlock::Uninit(void)
 {
-	CScene2D::Uninit();
+	//CScene2D::Uninit();
 	Release();
 }
 

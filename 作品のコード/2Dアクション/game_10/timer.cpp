@@ -40,7 +40,7 @@ CTimer *CTimer::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 	if (pTimer != NULL)
 	{
 		pTimer->Init(pos, Size);
-		pTimer->m_nTimer = 100;
+		pTimer->m_nTimer = 0;
 		pTimer->SetTimer(m_nTimer);
 	}
 	return pTimer;
@@ -66,6 +66,7 @@ HRESULT CTimer::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 //=============================================================================
 void CTimer::Uninit(void)
 {
+	SaveTimer(m_nTimer);
 	Release();
 }
 
@@ -78,7 +79,7 @@ void CTimer::Update(void)
 
 	if (m_nCntTimer % 60 == 0)
 	{
-		m_nTimer--;
+		m_nTimer++;
 	}
 	if (m_nTimer < 0)
 	{
@@ -103,17 +104,15 @@ void CTimer::Draw(void)
 // 時間の配置処理
 //=============================================================================
 void CTimer::SetTimer(int nTimer)
-{
-	m_nTimer = nTimer;
-
-	m_apNumber[0]->SetNumber(m_nTimer % 100000000 / 10000000);
-	m_apNumber[1]->SetNumber(m_nTimer % 10000000 / 1000000);
-	m_apNumber[2]->SetNumber(m_nTimer % 1000000 / 100000);
-	m_apNumber[3]->SetNumber(m_nTimer % 100000 / 10000);
-	m_apNumber[4]->SetNumber(m_nTimer % 10000 / 1000);
-	m_apNumber[5]->SetNumber(m_nTimer % 1000 / 100);
-	m_apNumber[6]->SetNumber(m_nTimer % 100 / 10);
-	m_apNumber[7]->SetNumber(m_nTimer % 10 / 1);
+{	
+	m_apNumber[0]->SetNumber(nTimer % 100000000 / 10000000);
+	m_apNumber[1]->SetNumber(nTimer % 10000000 / 1000000);
+	m_apNumber[2]->SetNumber(nTimer % 1000000 / 100000);
+	m_apNumber[3]->SetNumber(nTimer % 100000 / 10000);
+	m_apNumber[4]->SetNumber(nTimer % 10000 / 1000);
+	m_apNumber[5]->SetNumber(nTimer % 1000 / 100);
+	m_apNumber[6]->SetNumber(nTimer % 100 / 10);
+	m_apNumber[7]->SetNumber(nTimer % 10 / 1);
 
 
 	//static const int nData = 10;
@@ -127,4 +126,43 @@ void CTimer::SetTimer(int nTimer)
 	//m_apNumber[6]->SetNumber(m_nTimer % Exponentiation(nData, 2) / Exponentiation(nData, 1));
 	//m_apNumber[7]->SetNumber(m_nTimer % Exponentiation(nData, 1) / Exponentiation(nData, 0));
 
+}
+
+int CTimer::LodeTimer()
+{
+	int nTime = 0;
+
+	// 現在の時間を読み込む
+
+	FILE *pFile = fopen(TIMETEXT, "r");
+
+	if (pFile != NULL)
+	{
+		fscanf(pFile, "%d", &nTime);
+	}
+	else
+	{
+		printf("ファイルが読み込まれませんでした。");
+	}
+
+	fclose(pFile);
+
+	return nTime;
+}
+
+void CTimer::SaveTimer(const int nTime)
+{
+		// 現在の時間を保存
+	FILE *pFile = fopen(TIMETEXT, "w");
+
+	if (pFile != NULL)
+	{
+		fprintf(pFile, "%d", nTime);
+	}
+	else
+	{
+		printf("ファイルが読み込まれませんでした。");
+	}
+
+	fclose(pFile);
 }

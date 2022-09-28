@@ -34,7 +34,7 @@ CEffect::~CEffect()
 //=============================================================================
 // エフェクトの生成処理
 //=============================================================================
-CEffect *CEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size, D3DXVECTOR2 AddSize, D3DXCOLOR AddCol)
+CEffect *CEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size, D3DXVECTOR2 AddSize, D3DXCOLOR AddCol,int nTex)
 {
 	CEffect* pEffect;
 
@@ -44,7 +44,7 @@ CEffect *CEffect::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size, D3DXVECTOR2 AddSize,
 	{
 		pEffect->m_AddSize = AddSize;
 		pEffect->Init(pos, Size);
-		pEffect->Bindtexture(1);
+		pEffect->Bindtexture(nTex);
 		pEffect->m_AddCol = AddCol;
 	}
 	return pEffect;

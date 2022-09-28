@@ -38,7 +38,7 @@ CSelect::~CSelect()
 //=============================================================================
 HRESULT CSelect::Init(D3DXVECTOR3 pos)
 {
-	m_pBg = CBg::Create(pos, D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT), 0);
+	m_pBg = CBg::Create(pos, D3DXVECTOR2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2), 14);
 
 	m_pChoose_Game = CChoose_Game::Create(D3DXVECTOR3(0.0f,0.0f,0.0f));
 	return S_OK;
@@ -59,6 +59,8 @@ void CSelect::Uninit(void)
 	//	m_pChoose_Game->Uninit();
 	//	m_pChoose_Game = NULL;
 	//}
+
+	// ‰ğ•úˆ—
 	CScene::Release();
 }
 

@@ -29,16 +29,16 @@ class CFade;
 class CManager
 {
 public:
-
+	// モードの種類
 	typedef enum
 	{
-		MODE_INVALID = -1,
-		MODE_TITLE = 0,
-		MODE_TUTORIAL,
-		MODE_SELECT,
-		MODE_GAME,
-		MODE_RESULT,
-		MODE_MAX
+		MODE_INVALID = -1,														// 無し
+		MODE_TITLE = 0,															// タイトル
+		MODE_TUTORIAL,															// チュートリアル
+		MODE_SELECT,															// 選択
+		MODE_GAME,																// ゲーム
+		MODE_RESULT,															// リザルト
+		MODE_MAX																// モードの全種類
 	} MODE;
 
 	CManager();																	// コンストラクタ
@@ -59,6 +59,7 @@ public:
 	static CTexture*GetTexture(void) { return m_pTexture; }						// テクスチャのポインター取得処理
 	static CTitle*GetTitle(void) { return m_pTitle; }							// タイトルのポインター取得処理
 	static CSelect*GetSelect(void) { return m_pSelect; }						// 選択のポインター取得処理	
+	static CTutorial*GetTutorial(void) { return m_pTutorial; }					// チュートリアルのポインター取得処理	
 	static CGame*GetGame(void) { return m_pGame; }								// ゲームのポインター取得処理
 	static CResult*GetResult(void) { return m_pResult; }						// リザルトのポインター取得処理
 
@@ -69,7 +70,8 @@ private:																		// 自分だけがアクセス可能
 	static CLight * m_pLight[3];												// ライトのポインター生成
 	static CTexture * m_pTexture;												// テクスチャのポインター生成
 	static CTitle * m_pTitle;													// タイトルのポインター生成
-	static CSelect * m_pSelect;													// チュートリアルのポインター生成
+	static CSelect * m_pSelect;													// 選択画面のポインター生成
+	static CTutorial*m_pTutorial;												// チュートリアルのポインター生成	
 	static CGame * m_pGame;														// ゲームのポインター生成
 	static CResult * m_pResult;													// リザルトのポインター生成
 	static MODE m_mode;															// モードのポインター生成

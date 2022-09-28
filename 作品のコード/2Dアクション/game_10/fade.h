@@ -40,6 +40,7 @@ public:
 	void Draw(void);																// フェードの描画関数
 	static FADE GetFade(void) { return m_Fade; }									// フェードの取得処理
 	static void SetFade(CManager::MODE modeNext);									// フェードの配置処理
+	// ステージフェード追加？
 
 private:																			// 自分だけがアクセス可能
 	static LPDIRECT3DTEXTURE9 m_pTexture;											// 共有するテスクチャのポインタ

@@ -16,6 +16,7 @@
 #include"camera.h"
 #include"light.h"
 #include"select.h"
+#include"tutorial.h"
 
 //=============================================================================
 // Ã“Iƒƒ“ƒoŠÖ”‚ÌéŒ¾
@@ -28,7 +29,7 @@ CTexture *CManager::m_pTexture = NULL;
 CManager::MODE CManager::m_mode = MODE_TITLE;
 CTitle*CManager::m_pTitle = NULL;
 CSelect*CManager::m_pSelect = NULL;
-//CTutorial*CManager::m_pTutorial = NULL;
+CTutorial*CManager::m_pTutorial = NULL;
 CGame*CManager::m_pGame = NULL;
 CResult*CManager::m_pResult = NULL;
 CManager::MODE CManager::m_Nextmode = MODE_INVALID;
@@ -220,11 +221,11 @@ void CManager::ChangeMode(void)
 		break;
 
 	case MODE_TUTORIAL:
-		//if (m_pTutorial != NULL)
-		//{
-		//	m_pTutorial->Uninit();
-		//	m_pTutorial = NULL;
-		//}
+		if (m_pTutorial != NULL)
+		{
+			m_pTutorial->Uninit();
+			m_pTutorial = NULL;
+		}
 		break;
 
 	case MODE_GAME:
@@ -268,11 +269,11 @@ void CManager::ChangeMode(void)
 		break;
 
 	case MODE_TUTORIAL:
-		//m_pTutorial = new CTutorial;
-		//if (m_pTutorial != NULL)
-		//{
-		//	m_pTutorial->Init(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
-		//}
+		m_pTutorial = new CTutorial;
+		if (m_pTutorial != NULL)
+		{
+			m_pTutorial->Init(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
+		}
 		break;
 
 	case MODE_GAME:

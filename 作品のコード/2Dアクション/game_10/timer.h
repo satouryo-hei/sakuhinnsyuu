@@ -33,18 +33,13 @@ public:																// 誰でもアクセス可能
 	void Draw(void);												// 時間の描画関数
 	void SetTimer(int nTimer);										// 時間の配置関数
 	static int GetTimer(void) { return m_nTimer; }					// 時間の取得関数
+	static int LodeTimer();											// 時間の読み込み関数
 
 private:															// 自分だけがアクセス可能
-	CNumber* m_apNumber[MAX_TIME];											// ナンバーのポインター
-	static int m_nTimer;													// 時間
+	inline void SaveTimer(const int nTime);							// 時間の読み込み関数
+	CNumber* m_apNumber[MAX_TIME];									// ナンバーのポインター
+	static int m_nTimer;											// 時間
 	int m_nCntTimer;												// 時間を数える
 
 };
-
-//累乗処理(同じ型同士)※9回以下のみ使用可能※
-template<class T> T Exponentiation(T data0, T data1)
-{
-	T Answer = pow(data0, data1);
-	return Answer;
-}
 #endif

@@ -69,7 +69,7 @@ HRESULT CMoveBlock::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 //=============================================================================
 void CMoveBlock::Uninit(void)
 {
-	CScene2D::Uninit();
+	//CScene2D::Uninit();
 	Release();
 }
 

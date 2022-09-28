@@ -11,6 +11,7 @@
 #include"player.h"
 #include"block.h"
 #include"camera.h"
+#include"enemy02.h"
 
 //=============================================================================
 // コンストラクタ
@@ -191,7 +192,7 @@ void CRenderer::Draw(void)
 		CScene *pScene = NULL;
 
 		//ポリゴンの描画処理
-		pScene->DrawAll();
+		CScene::DrawAll();
 
 #ifdef _DEBUG
 		// FPS表示
@@ -221,6 +222,7 @@ void CRenderer::DrawFPS(void)
 	D3DXVECTOR3 Rot = CManager::GetCamera()->GetRot();
 	int nAttack = CGame::GetPlayer()->GetItem();
 
+
 	RECT rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	char str[256];
 
@@ -229,8 +231,8 @@ void CRenderer::DrawFPS(void)
 	nNum += sprintf(&str[nNum], "カメラ:%.1f,%.1f,%.1f\n", PosR.x, PosR.y, PosR.z);
 	nNum += sprintf(&str[nNum], "カメラ:%.1f,%.1f,%.1f\n", PosV.x, PosV.y, PosV.z);
 	nNum += sprintf(&str[nNum], "カメラ:%.1f,%.1f,%.1f\n", Rot.x, Rot.y, Rot.z);
-	nNum += sprintf(&str[nNum], "ステータス\n");
-	nNum += sprintf(&str[nNum], "攻撃力:%d\n", nAttack);
+	nNum += sprintf(&str[nNum], "アイテム数\n");
+	nNum += sprintf(&str[nNum], "鍵の数:%d\n", nAttack);
 
 	// テキスト描画
 	m_pFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));

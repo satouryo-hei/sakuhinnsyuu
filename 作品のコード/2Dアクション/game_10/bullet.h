@@ -25,8 +25,9 @@ public:																			// 誰でもアクセス可能
 	void Draw(void);															// 弾の描画関数
 	bool GetUse(void) { return m_bUse; }
 	void SetUse(bool bUse) { m_bUse = bUse; }
-	void BlockColision();
+	void EnemyColision();
 	D3DXVECTOR3 GetPosOld() { return m_PosOld; }
+	int GetAttack() { return m_nAttack; }
 
 private:																		// 自分だけがアクセス可能		
 	bool m_bUse;															// 使っているかどうか

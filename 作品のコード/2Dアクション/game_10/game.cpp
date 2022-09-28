@@ -11,18 +11,19 @@
 #include"fade.h"
 #include"timer.h"
 #include"player.h"
-#include"attack_up.h"
+#include"item.h"
 #include"block.h"
 #include"bg.h"
 #include"meshfield.h"
 #include"meshsky.h"
 #include"wall.h"
-#include"stage.h"
+#include"stage_top.h"
 #include"enemy02.h"
 #include"noneblock.h"
 #include"pushblock.h"
 #include"moveblock.h"
 #include"goal.h"
+#include"score.h"
 
 //=============================================================================
 // 静的メンバ関数の宣言
@@ -30,13 +31,14 @@
 CBg* CGame::m_pBg = NULL;
 CTimer* CGame::m_pTimer = NULL;
 CPlayer* CGame::m_pPlayer = NULL;
-CAttack_up* CGame::m_pAttack_up = NULL;
+CItem* CGame::m_pAttack_up = NULL;
 CMeshField		* CGame::m_pMeshField = NULL;
 CMeshSky		* CGame::m_pMeshSky = NULL;
 CWall* CGame::m_pWall = NULL;
-CStage_Tutorial* CGame::m_pStage = NULL;
+CStage_Top* CGame::m_pStage = NULL;
 CEnemy02* CGame::m_pEnemy = NULL;
 CGoal * CGame::m_pGoal = NULL;
+CScore * CGame::m_pScore = NULL;
 
 //=============================================================================
 // ゲームのコンストラクタ
@@ -59,27 +61,22 @@ CGame::~CGame()
 // ゲームの初期化処理
 //=============================================================================
 HRESULT CGame::Init(D3DXVECTOR3 pos)
-{
-	//m_pBg = CBg::Create(pos, D3DXVECTOR2(SCREEN_WIDTH, SCREEN_HEIGHT), 0);
+{	
 	// 時間の生成
-	m_pTimer = CTimer::Create(D3DXVECTOR3(420.0f, 50.0f, 0.0f), D3DXVECTOR2(20.0f, 30.0f));
+	m_pTimer = CTimer::Create(D3DXVECTOR3(420.0f, 50.0f, 0.0f), D3DXVECTOR2(20.0f, 30.0f));	
 	// 時間の生成
-	m_pPlayer = CPlayer::Create(D3DXVECTOR3(1200.0f, 200.0f, 0.0f), D3DXVECTOR3(10,10,0), D3DXVECTOR2(20,20));
-	// 時間の生成
-	m_pAttack_up = CAttack_up::Create(D3DXVECTOR3(1020.0f, 150.0f, 0.0f), D3DXVECTOR2(50, 50));
+	m_pAttack_up = CItem::Create(D3DXVECTOR3(1020.0f, 150.0f, 0.0f), D3DXVECTOR2(50, 50));	
 
-	m_pGoal = CGoal::Create(D3DXVECTOR3(1020.0f,630.0f, 0.0f), D3DXVECTOR2(50.0f, 50.0f));
-
-	m_pStage = CStage_Tutorial::Create(D3DXVECTOR3(0.0f, 0.0f, 0));
-	m_pEnemy = CEnemy02::Create(D3DXVECTOR3(100.0f, 100.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 0.0f), D3DXVECTOR2(30,30));
+	m_pStage = CStage_Top::Create(D3DXVECTOR3(0.0f, 0.0f, 0));
+	m_pEnemy = CEnemy02::Create(D3DXVECTOR3(1000.0f, 500.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 0.0f), D3DXVECTOR2(30,30));
 
 	// メッシュフィールド(地上)の生成
 	m_pMeshField = CMeshField::Create(D3DXVECTOR3(0.0f, 0.0f, 200.0f), D3DXVECTOR3(300.0f, 0.0f, 200.0f));
 
-
 	// メッシュスカイ(空)の生成
-	m_pMeshSky = CMeshSky::Create(D3DXVECTOR3(0.0f, 100.0f, 100.0f), D3DXVECTOR3(1000.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 32, 8);
-	//m_pWall = CWall::Create(D3DXVECTOR3(0.0f, 0.0f, 300.0f), D3DXVECTOR3(280.0f, 1000.0f, 0.0f), D3DXVECTOR3(0.0f, 0, 0.0f));
+	m_pMeshSky = CMeshSky::Create(D3DXVECTOR3(0.0f, 100.0f, 100.0f), D3DXVECTOR3(1000.0f, 0.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 32, 8);	
+
+	m_pScore = CScore::Create(D3DXVECTOR3(950.0f, 50.0f, 0.0f), D3DXVECTOR2(20, 30));
 	return S_OK;
 }
 
@@ -115,6 +112,7 @@ void CGame::Uninit(void)
 //=============================================================================
 void CGame::Update(void)
 {
+#ifdef _DEBUG	
 	CInputKeyboard *pInputKeyboard = NULL;
 	pInputKeyboard = CManager::GetInputKeyboard();
 
@@ -124,6 +122,7 @@ void CGame::Update(void)
 		CFade::SetFade(CManager::MODE_RESULT);
 		m_bFade = true;
 	}
+#endif // _DEBUG
 }
 
 //=============================================================================

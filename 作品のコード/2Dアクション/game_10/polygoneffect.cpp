@@ -78,7 +78,16 @@ HRESULT CPolygonEffect::Init(D3DXVECTOR3 pos)
 	//=============================================================================
 void CPolygonEffect::Uninit(void)
 {
+	// POLYGON_MAX分回す
+	for (int nCnt = 0; nCnt < POLYGON_MAX; nCnt++)
+	{
+		if (m_pPolygon[nCnt] != NULL)
+		{
+			m_pPolygon[nCnt]->SetUse(false);
+			m_pPolygon[nCnt] = NULL;
+		}
 
+	}
 	// シーンの解放処理
 	CScene::Release();
 
@@ -137,7 +146,7 @@ void CPolygonEffect::SetVtxBuffColor(D3DXCOLOR Col, int nNum, int nVtxBuff)
 //=============================================================================
 // 2Dエフェクトの位置設定処理
 //=============================================================================
-void CPolygonEffect::Setpos(D3DXVECTOR3 pos)
+void CPolygonEffect::SetPos(D3DXVECTOR3 pos)
 {
 	// POLYGON_MAX分回す
 	for (int nCnt = 0; nCnt < POLYGON_MAX; nCnt++)

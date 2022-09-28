@@ -15,6 +15,7 @@ CExplosion::CExplosion(int nPriority) : CScene2D(PRIORITY_EFFECT)
 {	
 	m_nCounterAnim = 0;
 	m_nPatternAnim = 0;
+	m_bUse = true;
 }
 
 
@@ -32,13 +33,18 @@ CExplosion::~CExplosion()
 //=============================================================================
 CExplosion *CExplosion::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size,int nTex)
 {
-	CExplosion* pExplosion;
+	CExplosion* pExplosion = NULL;
 
+	// ポインターの動的メモリの確保
 	pExplosion = new CExplosion;
 
+	//NULLチェック
 	if (pExplosion != NULL)
 	{
+		// 初期化処理の呼び出し
 		pExplosion->Init(pos, Size);
+
+		// テクスチャの設定処理
 		pExplosion->Bindtexture(nTex);
 	}
 	return pExplosion;
@@ -49,7 +55,9 @@ CExplosion *CExplosion::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size,int nTex)
 //=============================================================================
 HRESULT CExplosion::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 {
+	// 初期化処理の呼び出し
 	CScene2D::Init(pos, Size);
+	// アニメーションテクスチャの設定
 	CScene2D::SetTexAnime(m_nPatternAnim,0.125f,0,1);
 
 	return S_OK;
@@ -73,6 +81,13 @@ void CExplosion::Uninit(void)
 //=============================================================================
 void CExplosion::Update(void)
 {
+	// 使われていなかったら
+	if (!m_bUse)
+	{
+		Uninit();
+		return;
+	}
+
 	D3DXVECTOR3 pos = GetPosition();
 
 	m_nCounterAnim++;
@@ -85,8 +100,8 @@ void CExplosion::Update(void)
 
 		if (m_nPatternAnim >= 8)
 		{
-			Uninit();
-			return;
+			m_nPatternAnim = 0;
+			m_bUse = false;
 		}
 	}
 

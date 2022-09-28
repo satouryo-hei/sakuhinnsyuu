@@ -12,6 +12,7 @@
 // 前方宣言
 //*****************************************************************************
 class CBg;
+class CRanking;
 
 //*****************************************************************************
 // リザルトのクラス
@@ -19,7 +20,7 @@ class CBg;
 class CResult : public CScene
 {
 public:
-	CResult(int nPriority = PRIORITY_NOMAL);																	// コンストラクタ
+	CResult(int nPriority = PRIORITY_NOMAL);									// コンストラクタ
 	~CResult();																	// デストラクタ
 
 	// メンバ関数
@@ -31,6 +32,7 @@ public:
 
 private:																		// 自分だけがアクセス可能	
 	static CBg * m_pBg;															// 背景のポインター生成
+	static CRanking * m_pRanking;												// ランキングのポインター生成
 	bool m_bFade;																// 遷移したかどうか
 };
 
