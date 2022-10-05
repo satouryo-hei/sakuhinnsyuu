@@ -34,7 +34,7 @@ CBullet::CBullet(int nPriority) : CScene2D(PRIORITY_BULLET)
 	m_nLife = 0;
 	m_bEffect = true;
 	m_nAttack = 0;
-	//m_bAlive = false;
+
 }
 
 
@@ -75,11 +75,9 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR2 Size, in
 HRESULT CBullet::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 {
 	CScene2D::Init(pos, Size);
-	m_nAttack = CPlayer::GetItem();
-	int nItem = CPlayer::GetItem();
-	m_nLife += nItem;
 	m_Pos = pos;
-	m_Size = Size;	
+	m_Size = Size;
+	m_nAttack = 1;
 
 	return S_OK;
 }	// ƒ|ƒŠƒSƒ“‚Ì‰Šú‰»ˆ—I—¹
@@ -130,48 +128,15 @@ void CBullet::Update(void)
 	{
 		m_bUse = true;
 	}
-	//if (m_Pos.y >= SCREEN_HEIGHT - (m_Size.y / 2))
-	//{
-	//	m_bAlive = true;
-	//}
-	//else if (m_Pos.y <= (m_Size.y / 2))
-	//{
-	//	m_bAlive = true;
-	//}
-
-	////=============================================================================
-	//// Ž©‹@‚Ì’e‚Æ“G‚Ì“–‚½‚è”»’è
-	////=============================================================================
-	//for (int nPriority = 0; nPriority < PRIORITY_MAX; nPriority++)
-	//{
-	//	CScene * pScene = NULL;
-
-	//	pScene = CScene::GetScene(nPriority);
-
-	//	if (pScene != NULL)
-	//	{
-	//		CScene::OBJTYPE objType;
-	//		objType = pScene->GetOnjType();
-
-	//		if (objType == CScene::OBJTYPE_ENEMY &&m_ObjType == CScene::OBJTYPE_PLAYERBULLET)
-	//		{
-	//			CEnemy *pEnemy = (CEnemy*)pScene;
-
-	//			if (pos.x + (m_Size.x / 2) >= pEnemy->GetPosition().x - pEnemy->GetSize().x &&
-	//				pos.x - (m_Size.x / 2) <= pEnemy->GetPosition().x + pEnemy->GetSize().x &&
-	//				pos.y + (m_Size.y / 2) >= pEnemy->GetPosition().y - pEnemy->GetSize().y &&
-	//				pos.y - (m_Size.y / 2) <= pEnemy->GetPosition().y + pEnemy->GetSize().y)
-	//			{
-	//				//”š”­‚Ì¶¬
-	//				CExplosion::Create(pos, D3DXVECTOR2(100.0f, 100.0f));
-	//				pScore->AddScore(100);
-	//				Uninit();
-	//				pEnemy->Uninit();
-	//				return;
-	//			}
-	//		}
-	//	}
-	//}
+	// ‰æ–ÊŠOˆ—
+	if (m_Pos.y >= SCREEN_HEIGHT - (m_Size.y / 2))
+	{
+		m_bUse = true;
+	}
+	else if (m_Pos.y <= (m_Size.y / 2))
+	{
+		m_bUse = true;
+	}
 	EnemyColision();
 
 	if (m_bUse)

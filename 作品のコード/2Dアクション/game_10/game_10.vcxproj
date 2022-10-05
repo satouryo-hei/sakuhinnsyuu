@@ -161,6 +161,7 @@
     <ClCompile Include="facialui.cpp" />
     <ClCompile Include="goal.cpp" />
     <ClCompile Include="homing.cpp" />
+    <ClCompile Include="keynum.cpp" />
     <ClCompile Include="keyui.cpp" />
     <ClCompile Include="logo.cpp" />
     <ClCompile Include="nextbutton.cpp" />
@@ -203,6 +204,7 @@
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="tutorial.cpp" />
+    <ClCompile Include="uilode.cpp" />
     <ClCompile Include="wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +218,7 @@
     <ClInclude Include="facialui.h" />
     <ClInclude Include="goal.h" />
     <ClInclude Include="homing.h" />
+    <ClInclude Include="keynum.h" />
     <ClInclude Include="keyui.h" />
     <ClInclude Include="logo.h" />
     <ClInclude Include="nextbutton.h" />
@@ -258,6 +261,7 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="tutorial.h" />
+    <ClInclude Include="uilode.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
