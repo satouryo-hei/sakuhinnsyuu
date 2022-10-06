@@ -11,12 +11,13 @@
 //=============================================================================
 // UIのコンストラクタ
 //=============================================================================
-CUi::CUi() : m_fMaxSpeed(50.0f), m_fMinSpeed(1.0f), m_fDiagonalSpeed(0.7f)
+CUi::CUi() : m_fMaxSpeed(50.0f), m_fMinSpeed(1.0f), m_fDiagonalSpeed(0.7f),m_fUpAngle(0.75f), m_fDownAngle(0.25f), m_ResetPos(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)), m_ResetSize(D3DXVECTOR3(100.0f, 50.0f, 0.0f)), m_ResetMove(D3DXVECTOR3(10.0f, 10.0f, 0.0f)), m_nMaxSetTexNum(LIMITUI -1)
 {
 	m_Pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_Size = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	
 	m_col = D3DXCOLOR(255, 255, 255, 255);
+	m_nTextureType = 0;
 	m_pInputKeyboard = NULL;
 	m_bUse = true;
 	m_bMove = true;
@@ -37,12 +38,16 @@ CUi::~CUi()
 //=============================================================================
 CUi *CUi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType)
 {
+	// UIのポインターを生成
 	CUi *pUi = NULL;
+
+	// 動的メモリの確保
 	pUi = new CUi;
 
 	// NULLチェック
 	if (pUi != NULL)
 	{
+		// UIの初期化処理の呼び出し
 		pUi->Init(pos, move, Size, nType);
 	}
 	return pUi;
@@ -53,8 +58,9 @@ CUi *CUi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType)
 //=============================================================================
 HRESULT CUi::Init(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType)
 {
+	// 
 	CScene2D::Init(pos, move, Size);
-	CScene2D::BindTextuer(nType);
+	SetTex(nType);
 	m_Pos = pos;
 	m_Move = move;
 	m_Size = Size;
@@ -109,14 +115,14 @@ void CUi::Update(void)
 		// Xを押したら
 		if (m_pInputKeyboard->GetTrigger(DIK_X) == true)
 		{
-			m_Move = D3DXVECTOR3(10.0f, 10.0f, 0.0f);
+			m_Move = m_ResetMove;
 		}
 
 		// SPACEを押したら
 		if (m_pInputKeyboard->GetTrigger(DIK_SPACE) == true)
 		{
-			m_Pos = D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
-			m_Size = D3DXVECTOR3(100.0f, 50.0f, 0.0f);
+			m_Pos = m_ResetPos;
+			m_Size = m_ResetSize;
 		}
 
 		CScene2D::SetPosition(m_Pos);
@@ -149,8 +155,8 @@ void CUi::ChangeMoveUI(void)
 			if (m_pInputKeyboard->GetPress(DIK_W) == true)
 			{
 				//左上に移動
-				m_Pos.x += sinf(D3DX_PI*-0.75f)*(m_Move.x*m_fDiagonalSpeed);
-				m_Pos.y += cosf(D3DX_PI*-0.75f)*(m_Move.y*m_fDiagonalSpeed);
+				m_Pos.x += sinf(D3DX_PI*-m_fUpAngle)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*-m_fUpAngle)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			//AとSを押したら
 			else if (m_pInputKeyboard->GetPress(DIK_S) == true)
@@ -171,15 +177,15 @@ void CUi::ChangeMoveUI(void)
 			if (m_pInputKeyboard->GetPress(DIK_W) == true)
 			{
 				//右上に移動
-				m_Pos.x += sinf(D3DX_PI*0.75f)*(m_Move.x*m_fDiagonalSpeed);
-				m_Pos.y += cosf(D3DX_PI*0.75f)*(m_Move.y*m_fDiagonalSpeed);
+				m_Pos.x += sinf(D3DX_PI*m_fUpAngle)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*m_fUpAngle)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			//DとWを押したら
 			else if (m_pInputKeyboard->GetPress(DIK_S) == true)
 			{
 				//右下に移動
-				m_Pos.x += sinf(D3DX_PI*0.25f)*(m_Move.x*m_fDiagonalSpeed);
-				m_Pos.y += cosf(D3DX_PI*0.25f)*(m_Move.y*m_fDiagonalSpeed);
+				m_Pos.x += sinf(D3DX_PI*m_fDownAngle)*(m_Move.x*m_fDiagonalSpeed);
+				m_Pos.y += cosf(D3DX_PI*m_fDownAngle)*(m_Move.y*m_fDiagonalSpeed);
 			}
 			else //Dを押したら
 			{
@@ -322,7 +328,34 @@ void CUi::ChangeAnimeUI(void)
 	{
 		// アニメーション後のテクスチャの割り当てを初期化する
 		CScene2D::SetTex(0,1);
+		m_nCounterAnim = 0;
+		m_nPatternAnim = 0;
 	}
+}
+
+//=============================================================================
+// UIのテクスチャの設定処理
+//=============================================================================
+void CUi::SetTex(int nTex)
+{
+	// テクスチャタイプの数が最大値を超えたら
+	if (nTex > m_nMaxSetTexNum)
+	{
+		// テクスチャタイプの数に最小値に代入
+		nTex = 0;
+	}
+	// テクスチャタイプの数が最小値より下だったら
+	else if (nTex < 0)
+	{
+		// テクスチャタイプの数に最大値に代入
+		nTex = m_nMaxSetTexNum;
+	}
+
+	// テクスチャの設定処理
+	BindTextuer(nTex);
+
+	// 設定された数を格納
+	m_nTextureType = nTex;
 }
 
 //=============================================================================
@@ -388,3 +421,4 @@ void CUi::LodeAnim(void)
 	// 閉じれ～ファイル！
 	fclose(pFile);
 }
+

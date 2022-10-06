@@ -97,6 +97,7 @@ void CImgui_Window::Update(void)
 
 	// IMGUI開始
 	ImGui::Begin(u8"UI情報"); //タイトルテキスト
+
 	// 使用しているかどうかの取得
 	bool bUse = CManager::GetUi_manager()->GetUse();
 
@@ -105,14 +106,18 @@ void CImgui_Window::Update(void)
 		// 移動できるか
 		bool bMove = CManager::GetUi_manager()->GetUi(nNumUI)->GetBoolMove();
 		ImGui::Checkbox(u8"位置変更", &bMove);
+
 		// 移動できるなら
 		if (bMove)
 		{
+			// 現在の位置を取得する
 			D3DXVECTOR3 Pos = CManager::GetUi_manager()->GetUi(nNumUI)->GetPos();
 			ImGui::InputFloat3(u8"位置", Pos);
+
+			// 現在の位置を設定する
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetPos(Pos);
 		}
-		// 現在地変更の設定をする
+		// // 移動できるかの設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolMove(bMove);
 
 		// 大きさ変更できるか
@@ -121,11 +126,13 @@ void CImgui_Window::Update(void)
 		// できるなら
 		if (bSize)
 		{
+			// 大きさを取得する
 			D3DXVECTOR3 Size = CManager::GetUi_manager()->GetUi(nNumUI)->GetSize();
 			ImGui::InputFloat2(u8"大きさ", Size);
+			// 大きさを設定をする
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetSize(Size);
 		}
-		// 大きさ変更の設定をする
+		// 大きさ変更できるかの設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolSize(bSize);
 
 		// 移動量の変更ができるか
@@ -134,19 +141,31 @@ void CImgui_Window::Update(void)
 		// できるなら
 		if (bSpeed)
 		{
+			// 移動量を取得する
 			D3DXVECTOR3 Move = CManager::GetUi_manager()->GetUi(nNumUI)->GetMove();
 			ImGui::InputFloat3(u8"移動量", Move);
+			// 移動量を設定をする
 			CManager::GetUi_manager()->GetUi(nNumUI)->SetMove(Move);
 		}
-		// 移動量変更の設定をする
+		// 移動量の変更ができるかの設定をする
 		CManager::GetUi_manager()->GetUi(nNumUI)->SetBoolSpeed(bSpeed);
 
-		// 最大個数の取得
+		// 最大個数の取得をする
 		int nMax = CManager::GetUi_manager()->GetMax();
 		ImGui::InputInt(u8"現在の最大個数", &nMax);
-		// 最大個数の設定
+
+		// 最大個数の設定をする
 		CManager::GetUi_manager()->SetMax(nMax);
+
+		// 現在のテクスチャを取得する
+		int nTex = CManager::GetUi_manager()->GetUi(nNumUI)->GetTex();
+		ImGui::InputInt(u8"現在のテクスチャ", &nTex);
+
+		// 現在のテクスチャを設定する
+		CManager::GetUi_manager()->GetUi(nNumUI)->SetTex(nTex);
+
 		ImGui::Text(u8"～～～～～ココから変更不可～～～～～");
+
 		// 差分を計算
 		int nDiff = LIMITUI - nMax;
 		ImGui::InputInt(u8"限界値までの個数", &nDiff);		

@@ -8,9 +8,9 @@
 #define _UI_MANAGER_H_
 
 #include"scene2D.h"
+#include"ui.h"
 
 #define SETUITEXT "data/TEXT/Setui.txt"
-#define LIMITUI (20)
 
 //*****************************************************************************
 // ‘O•ûéŒ¾

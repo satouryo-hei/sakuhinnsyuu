@@ -15,12 +15,13 @@ class CImgui_Window
 {
 public:
 
-	CImgui_Window();									// IMGUIのウィンドウのコンストラクタ
-	~CImgui_Window();									// IMGUIのウィンドウのデストラクタ
-	// メンバ関数
-	HRESULT Init(HWND hWnd, bool bWindow);				// IMGUIのウィンドウの初期化関数
-	void Uninit(void);									// IMGUIのウィンドウの終了関数　
-	void Update(void);									// IMGUIのウィンドウの更新関数
-	void Draw(void);									// IMGUIのウィンドウの描画関数
+	CImgui_Window();											// コンストラクタ
+	~CImgui_Window();										// デストラクタ
+															// メンバ関数
+	HRESULT Init(HWND hWnd, bool bWindow);					// ポリゴンの初期化関数
+	void Uninit(void);									// ポリゴンの終了関数　
+	void Update(void);									// ポリゴンの更新関数
+	void Draw(void);									// ポリゴンの描画関数
+private:												// 自分だけがアクセス可能	
 };
 #endif

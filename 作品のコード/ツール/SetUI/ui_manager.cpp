@@ -7,7 +7,6 @@
 #include "ui_manager.h"
 #include"input.h"
 #include"manager.h"
-#include"ui.h"
 
 /*
 任意で種類選択をさせて、拡張性を上げる
@@ -22,7 +21,7 @@ CUi*CUI_Manager::m_pUi[LIMITUI] = {};
 int CUI_Manager::m_nAllui = 0;
 
 //=============================================================================
-// uiの管理型のコンストラクタ
+// UIのコンストラクタ
 //=============================================================================
 CUI_Manager::CUI_Manager() : CScene(), m_nMaxUI(10), m_MinUI(0)
 {
@@ -40,7 +39,7 @@ CUI_Manager::CUI_Manager() : CScene(), m_nMaxUI(10), m_MinUI(0)
 }
 
 //=============================================================================
-// uiの管理型のデストラクタ
+// UIのデストラクタ
 //=============================================================================
 CUI_Manager::~CUI_Manager()
 {
@@ -48,7 +47,7 @@ CUI_Manager::~CUI_Manager()
 }
 
 //=============================================================================
-// uiの管理型の生成処理
+// UIの生成処理
 //=============================================================================
 CUI_Manager *CUI_Manager::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size)
 {
@@ -65,7 +64,7 @@ CUI_Manager *CUI_Manager::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 
 
 
 //=============================================================================
-// uiの管理型の初期化処理
+// UIの初期化処理
 //=============================================================================
 HRESULT CUI_Manager::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
@@ -76,7 +75,7 @@ HRESULT CUI_Manager::Init(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 }
 
 //=============================================================================
-// uiの管理型の初期化処理
+// UIの初期化処理
 //=============================================================================
 HRESULT CUI_Manager::Init(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size)
 {
@@ -103,7 +102,7 @@ void CUI_Manager::Uninit(void)
 }
 
 //=============================================================================
-// uiの管理型の更新処理
+// UIの更新処理
 //=============================================================================
 void CUI_Manager::Update(void)
 {
@@ -119,9 +118,10 @@ void CUI_Manager::Update(void)
 		D3DXVECTOR3 size = m_pUi[m_nAllui]->GetSize();
 		m_Color = m_pUi[m_nAllui]->GetColor();
 
+
 		m_pUi[m_nAllui]->SetPos(pos);
 		m_pUi[m_nAllui]->SetSize(size);
-		m_pUi[m_nAllui]->SetCol(m_Color);
+		m_pUi[m_nAllui]->SetCol(m_Color);		
 		m_pUi[m_nAllui]->Update();
 
 		bool bMove= m_pUi[m_nAllui]->GetBoolMove();	
@@ -244,14 +244,14 @@ void CUI_Manager::Update(void)
 }
 
 //=============================================================================
-// uiの管理型の描画処理
+// UIの描画処理
 //=============================================================================
 void CUI_Manager::Draw(void)
 {
 }
 
 //=============================================================================
-// uiの管理型の配置関数
+// UIの配置関数
 //=============================================================================
 void CUI_Manager::SetUI(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 {
@@ -282,7 +282,7 @@ void CUI_Manager::SetUI(D3DXVECTOR3 pos, D3DXVECTOR3 size)
 }
 
 //=============================================================================
-// uiの管理型の書き出し処理
+// UIの書き出し処理
 //=============================================================================
 void CUI_Manager::SaveUI(void)
 {
@@ -314,8 +314,8 @@ void CUI_Manager::SaveUI(void)
 		{
 			fprintf(pFile, "#%d個目\n", nCnt + 1);
 			fprintf(pFile, "SETUI\n");
-			fprintf(pFile, "\tPOS = %.1f %.1f %.1f\n", m_SavePos[nCnt].x, m_SavePos[nCnt].y, m_SavePos[nCnt].z);
-			fprintf(pFile, "\tSIZE = %.1f %.1f\n", m_SaveSize[nCnt].x, m_SaveSize[nCnt].y);
+			fprintf(pFile, "\tPOS = %.1f %.1f %.1f\n", m_SavePos[nCnt].x, m_SavePos[nCnt].y, m_SavePos[nCnt].z);	//現在の位置を書き込み
+			fprintf(pFile, "\tSIZE = %.1f %.1f\n", m_SaveSize[nCnt].x, m_SaveSize[nCnt].y);							//現在の大きさを書き込み
 			fprintf(pFile, "END_SETUI\n\n");
 		}
 		fprintf(pFile, "END_SCRIPT\t\t# この行は絶対消さないこと！\n");
@@ -329,7 +329,7 @@ void CUI_Manager::SaveUI(void)
 }
 
 //=============================================================================
-// uiの管理型の読み込み処理
+// UIの読み込み処理
 //=============================================================================
 void CUI_Manager::LodeUI(void)
 {
@@ -396,6 +396,7 @@ void CUI_Manager::LodeUI(void)
 //=============================================================================
 void CUI_Manager::LodeSetAll(void)
 {
+	// m_nLodeUI分回す
 	for (int nCnt = 0; nCnt < m_nLodeUI; nCnt++)
 	{
 		SetUI(m_LodePos[nCnt], m_LodeSize[nCnt]);

@@ -52,8 +52,9 @@ private:																// 自分だけがアクセス可能
 	LPDIRECT3DDEVICE9 m_pD3DDevice;										// Deviceオブジェクト(描画に必要)
 	LPD3DXFONT m_pFont;													// フォントへのポインタ
 	LPD3DXFONT m_pUiFont;												// フォントへのポインタ	
+	bool m_bUIControl;													// 操作方法を表示するかどうか
 	D3DXCOLOR m_FontCol;												// フォントのカラー
-	int m_nFontColType;													// フォントのカラーの種類
+	int m_FontColType;													// フォントのカラーの種類
 	bool m_bColorTrigger;												// 押し続けて変更されるかどうか
 
 };
