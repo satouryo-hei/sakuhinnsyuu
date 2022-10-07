@@ -58,7 +58,7 @@ CUi *CUi::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType)
 //=============================================================================
 HRESULT CUi::Init(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR3 Size, int nType)
 {
-	// 
+	// オブジェクト2D初期化処理の呼び出し
 	CScene2D::Init(pos, move, Size);
 	SetTex(nType);
 	m_Pos = pos;
@@ -302,7 +302,7 @@ void CUi::ChangeAnimeUI(void)
 {
 	// アニメーションさせるなら
 	if (m_bAnim)
-	{
+	{		
 		// アニメーションのカウントを進める
 		m_nCounterAnim++;
 
@@ -366,7 +366,7 @@ void CUi::LodeAnim(void)
 	//--------------------------
 	// 読み込む用の変数
 	//--------------------------
-	char aFile[3][128] = {};
+	char aFile[2][128] = {};
 	char aName[128] = {};
 	// 開け～ファイル！
 	FILE *pFile = fopen("data/TEXT/AnimUI.txt", "r");
@@ -377,11 +377,11 @@ void CUi::LodeAnim(void)
 		// 無限ループ
 		while (1)
 		{
-			fscanf(pFile, "%s", &aFile[0][0]);										// 1列を読み込み(2行目以降は上書きされる)
+			fscanf(pFile, "%s", &aFile[0][0]);												// 1列を読み込み(2行目以降は上書きされる)
 
-			while (strcmp(&aFile[0][0], "SETANIME") == 0)								// SETUIが見つかったら
+			while (strcmp(&aFile[0][0], "SETANIME") == 0)									// SETANIMEが見つかったら
 			{
-				fscanf(pFile, "%s", &aFile[1]);										// 1列を読み込み(2行目以降は上書きされる)
+				fscanf(pFile, "%s", &aFile[1]);												// 1列を読み込み(2行目以降は上書きされる)
 				if (strcmp(&aFile[1][0], "ANIMESPEED") == 0)								// ANIMESPEEDが見つかったら
 				{
 					fscanf(pFile, "%s%d", &aName[0], &m_nAnimeSpeed);
@@ -394,22 +394,22 @@ void CUi::LodeAnim(void)
 				{
 					fscanf(pFile, "%s%f", &aName[0], &m_fSizeAnimU);
 				}
-				else if (strcmp(&aFile[1][0], "ANIMEMINSIZEV") == 0)							// ANIMEMINSIZEVが見つかったら
+				else if (strcmp(&aFile[1][0], "ANIMEMINSIZEV") == 0)						// ANIMEMINSIZEVが見つかったら
 				{
 					fscanf(pFile, "%s%f", &aName[0], &m_fMinSizeV);
 				}
-				else if (strcmp(&aFile[1][0], "ANIMEMAXSIZEV") == 0)							// ANIMEMAXSIZEVが見つかったら
+				else if (strcmp(&aFile[1][0], "ANIMEMAXSIZEV") == 0)						// ANIMEMAXSIZEVが見つかったら
 				{
 					fscanf(pFile, "%s%f", &aName[0], &m_fMaxSizeV);
 				}
-				else if (strcmp(&aFile[1][0], "END_SETANIME") == 0)					// END_SETUIが見つかったら
+				else if (strcmp(&aFile[1][0], "END_SETANIME") == 0)							// END_SETUIが見つかったら
 				{
-					break;															// 無限ループを抜ける
+					break;																	// 無限ループを抜ける
 				}
 			}
-			if (strcmp(&aFile[0][0], "END_SCRIPT") == 0)							// END_SCRIPTが見つかったら
+			if (strcmp(&aFile[0][0], "END_SCRIPT") == 0)									// END_SCRIPTが見つかったら
 			{
-				break;																// 無限ループを抜ける
+				break;																		// 無限ループを抜ける
 			}
 		}
 	}
