@@ -30,16 +30,16 @@ CPushBlock::~CPushBlock()
 //=============================================================================
 CPushBlock *CPushBlock::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size, D3DXVECTOR3 move, int nTex)
 {
-	CPushBlock *pBlock = NULL;
-	pBlock = new CPushBlock;
+	CPushBlock *pPushBlock = NULL;
+	pPushBlock = new CPushBlock;
 
-	if (pBlock != NULL)
+	if (pPushBlock != NULL)
 	{
-		pBlock->Init(pos, Size);
-		pBlock->m_move = move;
-		pBlock->Bindtexture(0);
+		pPushBlock->Init(pos, Size);
+		pPushBlock->m_move = move;
+		pPushBlock->Bindtexture(0);
 	}
-	return pBlock;
+	return pPushBlock;
 }
 
 //=============================================================================
@@ -112,35 +112,41 @@ void CPushBlock::NoneColision(void)
 	// ブロックオブジェクトを取得
 	CScene * pScene = CScene::GetScene(CScene::PRIORITY_BLOCK);
 
+	// オブジェクトがNULLじゃない限り回す
 	while (pScene != NULL)
 	{
 		// 取得したオブジェクトを普通のブロックに代入
 		CNoneBlock *pNoneBlock = (CNoneBlock*)pScene;
 
+		// ノーマルブロックの現在の位置を取得
 		D3DXVECTOR3 Nonepos = pNoneBlock->GetPosition();
+
+		// ノーマルブロックの大きさを取得
 		D3DXVECTOR2 Nonesize = pNoneBlock->GetSize();
 
-		if (m_pos.x - m_size.x < Nonepos.x + Nonesize.x &&				//ブロックの右端
-			m_pos.x + m_size.x > Nonepos.x - Nonesize.x &&				//ブロックの左端
-			m_pos.y - m_size.y < Nonepos.y + Nonesize.y &&							//ブロックの下部
-			m_pos.y + m_size.y > Nonepos.y - Nonesize.y)						//ブロックの上部
-		{
-			if (m_posOld.y + m_size.y <= Nonepos.y - Nonesize.y)			//ブロックの上部			
-			{
-				m_pos.y = Nonepos.y - m_size.y - Nonesize.y;	
-				m_move.y = 0;
-			}
-			else if (m_posOld.x - m_size.x <= Nonepos.x + Nonesize.x)		//ブロックの右端			
-			{
-				m_pos.x = Nonepos.x + m_size.x + Nonesize.x;
-			}
-			else if (m_posOld.x + m_size.x >= Nonepos.x - Nonesize.x)		//ブロックの左端			
+		if (m_pos.x - m_size.x < Nonepos.x + Nonesize.x &&				// 押すブロックの左端 < ブロックの右端
+			m_pos.x + m_size.x > Nonepos.x - Nonesize.x &&				// 押すブロックの右端 > ブロックの左端
+			m_pos.y - m_size.y < Nonepos.y + Nonesize.y &&				// 押すブロックの上端 < ブロックの下部
+			m_pos.y + m_size.y > Nonepos.y - Nonesize.y)				// 押すブロックの下端 > ブロックの上部
+		{																   
+			if (m_posOld.y + m_size.y <= Nonepos.y - Nonesize.y)		// 前の位置の押すブロックの下部 <= ブロックの上部
+			{															   
+				m_pos.y = Nonepos.y - m_size.y - Nonesize.y;			   
+				m_move.y = 0;											   
+			}															   
+			else if (m_posOld.x - m_size.x <= Nonepos.x + Nonesize.x)	// 前の位置の押すブロックの右部 <= ブロックの右端			
+			{															   
+				m_pos.x = Nonepos.x + m_size.x + Nonesize.x;			   
+			}															   
+			else if (m_posOld.x + m_size.x >= Nonepos.x - Nonesize.x)	// 前の位置の押すブロックの右部 >=ブロックの左端			
 			{
 				m_pos.x = Nonepos.x - m_size.x - Nonesize.x;
 			}
 		}
 		// ブロックオブジェクトの次のオブジェクトを取得
 		CScene * pSceneNext = CScene::GetNext(pScene);
+
+		// 取得したオブジェクトを代入
 		pScene = pSceneNext;
 	}
 }

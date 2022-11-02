@@ -32,8 +32,8 @@ CFacialui *CFacialui::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size, int nTex)
 
 	if (pFacialui != NULL)
 	{
-		pFacialui->Init(pos, Size);
 		pFacialui->Bindtexture(nTex);
+		pFacialui->Init(pos, Size);
 	}
 	return pFacialui;
 }
@@ -46,7 +46,7 @@ HRESULT CFacialui::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 	m_Pos = pos;
 	CScene2D::Init(pos, Size);
 	// アニメーションのテクスチャ設定
-	CScene2D::SetTexAnime(0, 0.5f, 0, 1);
+	SetFace(0);
 	return S_OK;
 }
 
@@ -73,4 +73,34 @@ void CFacialui::Update(void)
 void CFacialui::Draw(void)
 {
 	CScene2D::Draw();
+}
+
+//=============================================================================
+// 顔の差分の表示の設定処理
+//=============================================================================
+void CFacialui::SetFace(int nFace)
+{	
+	switch (nFace)
+	{
+	case FACE_NOMAL:
+		CScene2D::SetTexAnime(0, 0.25f, 0, 0.5f);
+		break;
+	case FACE_JOY:
+		CScene2D::SetTexAnime(1, 0.25f, 0, 0.5f);
+		break;
+	case FACE_ANGER:
+		CScene2D::SetTexAnime(2, 0.25f, 0, 0.5f);
+		break;
+	case FACE_SAD:
+		CScene2D::SetTexAnime(3, 0.25f, 0, 0.5f);
+		break;
+	case FACE_SURPRISE:
+		CScene2D::SetTexAnime(0, 0.25f, 0.5f, 1.0f);
+		break;
+	case FACE_CRYING:
+		CScene2D::SetTexAnime(1, 0.25f, 0.5f, 1.0f);
+		break;
+	default:
+		break;
+	}
 }

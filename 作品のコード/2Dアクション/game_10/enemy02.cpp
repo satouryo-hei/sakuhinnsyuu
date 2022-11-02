@@ -102,6 +102,7 @@ void CEnemy02::Update(void)
 	
 	bool bGame = CChoose_Game::GetGame();
 
+	// ƒQ[ƒ€‚É‘JˆÚ‚µ‚½‚©‚Ç‚¤‚©
 	if (bGame)
 	{
 		Playerpos = CGame::GetPlayer()->GetPos();

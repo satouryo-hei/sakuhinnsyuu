@@ -40,7 +40,7 @@ public:																// 誰でもアクセス可能
 	void Update(void);												// ゲームの選択の更新関数
 	void Draw(void);												// ゲームの選択の描画関数
 	static bool GetNewGame(void) { return m_bNewGame; }				// 新しく始めるかを取得
-	static bool GetGame(void) { return m_bGame; }					// 新しく始めるかを取得
+	static bool GetGame(void) { return m_bGame; }					// ゲームに遷移するかどうかの取得
 	void Resetcol(void);												// 色をリセット
 
 private:															// 自分だけがアクセス可能

@@ -9,7 +9,8 @@
 #include"player.h"
 #include"fade.h"
 #include"pushbutton.h"
-
+#include"facialui.h"
+#include"game.h"
 
 //=============================================================================
 // 静的メンバ変数の宣言
@@ -80,16 +81,25 @@ void CGoal::Uninit(void)
 //=============================================================================
 void CGoal::Update(void)
 {
+	// アイテム数を取得
 	int nItem = CPlayer::GetItem();
+
+	// 押されるボタンが使われているか取得
 	bool bUIUse = CPushButton::GetUse();
+
+	// プレイヤーの現在の位置を取得
 	D3DXVECTOR3 Playerpos = CPlayer::GetPos();
+
+	// プレイヤーの大きさを取得
 	D3DXVECTOR3 Playersize = CPlayer::GetSize();
 
 	// プレイヤーと敵の斜辺の距離を測るA＝絶対値(a-b)
 	float fRange = fabs(sqrtf(powf((Playerpos.x - m_Pos.x), 2.0f) + powf((Playerpos.y - m_Pos.y), 2.0f)));		// fabs = 絶対値
 
+	// アイテム数をが1以上だったら
 	if (nItem >= 1)
 	{
+		// プレイヤーと敵の距離が0じゃなかったら
 		if (fRange != 0)
 		{
 			// 円の面積にプレイヤーとの斜辺の距離が入っていたら
@@ -98,8 +108,10 @@ void CGoal::Update(void)
 				// Sが押されたら
 				if (CManager::GetInputKeyboard()->GetTrigger(DIK_S) == true && !m_bPush)
 				{
+					// 押されたよ
 					m_bPush = true;
 				}
+				// 押されていたら
 				if (m_bPush)
 				{
 					// アニメーションのカウントを進める
@@ -117,16 +129,26 @@ void CGoal::Update(void)
 						// アニメーションのパターン数がパターンの最大数を超えたら
 						if (m_nPatternAnim >= 8)
 						{
+							// ゲームをクリアしたことにする
 							m_bGameClear = true;
+
+							// 喜び表情に切り替え
+							CGame::GetFace()->SetFace(CFacialui::FACE_JOY);
+
+							// 次のモードに遷移
 							CFade::SetFade(m_NextMode);
+
 							// アニメーションのパターン数の初期化
 							m_nPatternAnim = 0;
 
+							// アイテム数を減少
 							nItem--;
+							// アイテム数が0以下になったら
 							if (nItem <= 0)
-							{
+							{// アイテム数を0にする
 								nItem = 0;
 							}
+							// アイテム数を設定
 							CPlayer::SetItem(nItem);
 						}
 					}
@@ -142,20 +164,22 @@ void CGoal::Update(void)
 				}
 				else
 				{
+					// 押すボタンのUIの現在の位置の設定
 					m_pPushButton->SetPosition(D3DXVECTOR3(Playerpos.x, Playerpos.y - Playersize.y - 30, Playerpos.z));
 				}
 			}
 			else
 			{
-				// 使かわれていたら消す
+				// 使かわれているか
 				if (bUIUse)
-				{
+				{// 使かわれていたら消す
 					bUIUse = false;
 					CPushButton::SetUse(bUIUse);
 				}
 			}
 		}
 	}
+	// オブジェクト2Dの更新処理
 	CScene2D::Update();
 }
 

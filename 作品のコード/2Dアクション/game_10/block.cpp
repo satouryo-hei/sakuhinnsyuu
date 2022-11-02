@@ -91,21 +91,21 @@ void CBlock::Draw(void)
 void CBlock::SetBlock(D3DXVECTOR3 pos, D3DXVECTOR2 Size, D3DXVECTOR3 move,
 	int nBlockType, int nMovetype, float fMin, float fMax, bool bBreak,int nTex)
 {
-	// ブロックの状態の遷移
+	// ブロックの設定
 	switch (nBlockType)
 	{
-		// ブロックが移動をしないとき
+		// 普通のブロックのとき
 	case BLOCKTYPE_NOME:
 		m_pNone = CNoneBlock::Create(pos, Size, bBreak, nTex);
 		break;
 
-		// ブロックがの移動をしているとき
+		// 移動をするブロックのとき
 	case BLOCKTYPE_MOVEING:		
 		m_pMove = CMoveBlock::Create(pos, Size, move,
 			nMovetype, fMin, fMax, nTex);
 		break;
 
-		// ブロックが押されるとき
+		// 押すことができるブロックのとき
 	case BLOCKTYPE_PUSH:
 		m_pPush = CPushBlock::Create(pos, Size, move, nTex);
 		break;

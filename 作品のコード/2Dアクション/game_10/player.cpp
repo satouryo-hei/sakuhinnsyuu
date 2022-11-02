@@ -19,6 +19,7 @@
 #include"moveblock.h"
 #include"shotgun.h"
 #include"enemy02.h"
+#include"facialui.h"
 /* ジャンプ中の移動がおかしい
 なんか気持ち悪い　現実ぽくない
 */
@@ -71,7 +72,7 @@ CPlayer::~CPlayer()
 //=============================================================================
 CPlayer *CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR2 Size)
 {
-	CPlayer* pPlayer;
+	CPlayer* pPlayer = NULL;
 
 	pPlayer = new CPlayer;
 
@@ -89,33 +90,47 @@ CPlayer *CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, D3DXVECTOR2 Size)
 //=============================================================================
 HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 {
-	int m_Life = 2;
-	float m_fSpeed = 0;
 	m_posold = pos;
 	m_pos = pos;
 	m_size = Size;
 	m_bUse = true;
+	// オブジェクト2Dの初期化処理の呼び出し
 	CScene2D::Init(pos, Size);
+
+	// 新しくゲームを始めるかどうかの取得
 	const bool bNewGame = CChoose_Game::GetNewGame();
+
+	// ゲームに遷移したかどうかの取得
 	const bool bGame = CChoose_Game::GetGame();
+
+	// 新しく始めるか
 	if (bNewGame)
-	{
+	{// 新しく始めた場合
+
+		// アイテム数を初期化
 		m_nItem = 0;
 #ifdef _DEBUG
+		// デバック用にアイテム数を大きくする
 		m_nItem = 100;
 #endif // _DEBUG
 
 	}
 	else if (!bNewGame)
-	{
+	{// 新しく始めてない場合
+
+		// 保持しているアイテムを読み取って取得
 		LoadItem();
 	}
 
+	// ゲームに遷移するか
 	if (!bGame)
-	{
+	{// ゲームに遷移しなかったら
+
+		// アイテムを保持させる状態で初期化
 		m_nItem = 1;
 	}
 
+	// アニメーション処理の呼び出し
 	CScene2D::SetTexAnime(m_nPatternAnim, m_fSizeU, m_fSizeMinV, m_fSizeMaxV);	
 
 	return S_OK;
@@ -128,8 +143,10 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 	//=============================================================================
 void CPlayer::Uninit(void)
 {
+	// アイテム数を記録
 	SaveItem();
 //	CScene2D::Uninit();
+	// 解放処理の呼び出し
 	Release();
 
 }// プレイヤーの終了処理終了
@@ -140,29 +157,42 @@ void CPlayer::Uninit(void)
  //=============================================================================
 void CPlayer::Update(void)
 {
+	// アニメーションのカウントを進める
 	m_nCounterAnim++;
+
+	// 使っているかどうか
 	if (!m_bUse)
-	{
+	{// 使っていないなら
+
+		// やられた表情に切り替え
+		CGame::GetFace()->SetFace(CFacialui::FACE_CRYING);
+		// 終了処理の呼び出し
 		Uninit();
 		return;
 	}
+
 	CInputKeyboard *pInputKeyboard = NULL;
 
 	pInputKeyboard = CManager::GetInputKeyboard();		
 	
-	if (CManager::GetInputKeyboard()->GetTrigger(DIK_F1) == true)
+	// 弾の切り替え処理
+	if (CManager::GetInputKeyboard()->GetTrigger(DIK_F1))
 	{
+		// 弾の種類を加算で変える
 		m_nBulletType++;
+
+		// 弾の種類が最大値まで言ったら
 		if (m_nBulletType >= SHOTTYPE_MAX)
 		{
+			// 弾の種類をNOMALに戻す
 			m_nBulletType = SHOTTYPE_NOMAL;
 		}
 	}
 
-	m_nTimer++;
-
+	// 状態遷移
 	switch (m_Playertype)
 	{
+	// 通常
 	case PLAYER_NOMAL:
 		m_posold = m_pos;		
 		
@@ -177,7 +207,9 @@ void CPlayer::Update(void)
 				{
 					m_fQuickening = -1.0f;
 				}
-				m_bMovePush = false;				
+				// 移動する向き
+				m_bMovePush = false;
+				// アニメーションテクスチャの設定
 				CScene2D::SetTexAnime(m_nPatternAnim, m_fSizeU, m_fSizeMinV, m_fSizeMaxV);
 				SetAnimesion(m_nPatternAnim, m_fSizeU, m_fSizeMinV, m_fSizeMaxV);
 		}
@@ -191,7 +223,9 @@ void CPlayer::Update(void)
 				{
 					m_fQuickening = 1.0f;
 				}
+				// 移動する向き
 				m_bMovePush = true;
+				// アニメーションテクスチャの設定
 				CScene2D::SetTexAnime(m_nPatternAnim, m_fSizeU, m_fSizeMinV, m_fSizeMaxV);
 				SetAnimesion(m_nPatternAnim, m_fSizeU, m_fSizeMinV, m_fSizeMaxV);
 		}
@@ -226,21 +260,29 @@ void CPlayer::Update(void)
 		//	}
 		//}
 
-
+		// 弾がうたれていたら
 		if (m_bBullet)
 		{
 			m_nCoolTime--;
+			// クール時間を0以下になったら
 			if (m_nCoolTime < 0)
 			{
+				// 弾を打っていない判定にする
 				m_bBullet = false;
+				// クール時間を0にする
 				m_nCoolTime = 0;
+				CGame::GetFace()->SetFace(CFacialui::FACE_NOMAL);
 			}
 		}
-
-		if (pInputKeyboard->GetPress(DIK_SPACE) == true && !m_bBullet)
-		{		
+		// 弾を打つ処理
+		if (pInputKeyboard->GetPress(DIK_SPACE)&& !m_bBullet)	// スペースが押されていてかつ弾を打っていない時
+		{	
+			// 打つ弾はどれですか
 			Shot(m_nBulletType,m_bMovePush);
 			//pManager->GetSound()->Play(CSound::SOUND_LABEL_SHOT000);		
+			// 表情の設定
+			CGame::GetFace()->SetFace(CFacialui::FACE_SURPRISE);
+			// 弾が打たれたよ
 			m_bBullet = true;
 		}
 
@@ -248,6 +290,10 @@ void CPlayer::Update(void)
 		m_move.y++;
 		m_pos.y += m_move.y;	
 
+		/*
+		 画面端との当たり判定
+		*/
+		// 横
 		if (m_pos.x + m_size.x >= SCREEN_WIDTH)
 		{
 			m_pos.x = SCREEN_WIDTH - m_size.x;			
@@ -257,6 +303,7 @@ void CPlayer::Update(void)
 			m_pos.x = m_size.x;						
 		}
 
+		// 縦
 		if (m_pos.y + m_size.y >= SCREEN_HEIGHT)
 		{
 			m_pos.y = SCREEN_HEIGHT - m_size.y;			
@@ -269,24 +316,35 @@ void CPlayer::Update(void)
 		}
 		break;
 
+	// 死んじゃった時
 	case PLAYER_DEATH:
-
+		// プレイヤー自信のタイマーが5で割り切れる時
 		if (m_nTimer % 5 == 0)
 		{
+			// 現在の位置を代入してあげる
 			m_pos = D3DXVECTOR3(10.0f + m_size.x, 320.0f, 0.0f);
 
+			// 現在の状態をリスタートにする
 			m_Playertype = PLAYER_RESTARE;
 		}
+		// プレイヤー内の時間を進める
+		m_nTimer++;
+		// 倒れちゃった…
 		m_bDeath = true;
 		break;
 
+	// もう一度遊べる時
 	case PLAYER_RESTARE:
+
+		// 現在の位置がx=150以上?
 		if (m_pos.x >= 150)
-		{
+		{// 現在の位置がx=150以上だったら
+			// 通常に戻す
 			m_Playertype = PLAYER_NOMAL;
 		}
 		else
-		{
+		{// それ以外
+			// 現在の位置に加算する
 			m_pos.x += 5;
 		}
 		break;
@@ -297,11 +355,19 @@ void CPlayer::Update(void)
 		break;
 	}
 
+	// 敵との当たり判定
 	EnemyColision();
+	// ブロックとの当たり判定
 	BlockColision();
+	// 押せるブロックとの当たり判定
 	PushColision();
+	// 移動するブロックとの当たり判定
 	MoveColision();
+
+	// 現在の位置の設定処理
 	SetPosition(m_pos);
+
+	// 現在の大きさの設定処理
 	SetSize(m_size);
 	CScene2D::Update();
 
@@ -313,6 +379,7 @@ void CPlayer::Update(void)
 //=============================================================================
 void CPlayer::Draw(void)
 {
+	// オブジェクト2Dの描画処理の呼び出し
 	CScene2D::Draw();
 
 }	// プレイヤーの描画処理終了
@@ -328,6 +395,7 @@ void CPlayer::Shot(int nType, bool bMovetype)
 	// ブロックオブジェクトを取得
 	CScene * pScene = CScene::GetScene(CScene::PRIORITY_ENEMY);
 
+	// どっちを向いているか
 	if (bMovetype)
 	{
 		nHang = 1;
@@ -337,6 +405,7 @@ void CPlayer::Shot(int nType, bool bMovetype)
 		nHang = -1;
 	}
 	
+	// 打つ弾の種類は？
 	switch (nType)
 	{
 	case SHOTTYPE_NOMAL:
@@ -620,6 +689,9 @@ void CPlayer::MoveColision(void)
 	}
 }
 
+//=============================================================================
+// 敵との当たり判定
+//=============================================================================
 void CPlayer::EnemyColision(void)
 {
 	// 敵のオブジェクトを取得
@@ -634,15 +706,20 @@ void CPlayer::EnemyColision(void)
 		D3DXVECTOR3 Enemymove = pEnemy->GetMove();
 		D3DXVECTOR2 Enemysize = pEnemy->GetSize();
 
-		if (m_pos.x - m_size.x < Enemypos.x + Enemysize.x &&				// プレイヤーの左端<ブロックの右端
-			m_pos.x + m_size.x > Enemypos.x - Enemysize.x &&				// プレイヤーの右端>ブロックの左端
-			m_pos.y - m_size.y < Enemypos.y + Enemysize.y &&				// プレイヤーの上端<ブロックの下端
-			m_pos.y + m_size.y > Enemypos.y - Enemysize.y)					// プレイヤーの下端>ブロックの上端
+		if (m_pos.x - m_size.x < Enemypos.x + Enemysize.x &&				// プレイヤーの左端<敵の右端
+			m_pos.x + m_size.x > Enemypos.x - Enemysize.x &&				// プレイヤーの右端>敵の左端
+			m_pos.y - m_size.y < Enemypos.y + Enemysize.y &&				// プレイヤーの上端<敵の下端
+			m_pos.y + m_size.y > Enemypos.y - Enemysize.y)					// プレイヤーの下端>敵の上端
 		{
+			// 敵が死んだことにする
 			pEnemy->SetAlive(false);
+			// アイテム数を0にする
 			m_nItem = 0;
-			m_bUse = false;
+			// プレイヤーも死んだことにする
+			m_bUse = false;			
+			// リザルトに遷移
 			CFade::SetFade(CManager::MODE_RESULT);
+
 		}		
 		// 現在のオブジェクトの次を取得
 		CScene * pSceneNext = CScene::GetNext(pScene);

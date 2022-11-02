@@ -108,6 +108,7 @@ void CMoveBlock::SetBlock(void)
 		}
 		else
 		{
+			// ブロックが下に移動をするようにする
 			m_nBlockCondition = MOVE_DOWN;
 		}
 		break;
@@ -120,6 +121,7 @@ void CMoveBlock::SetBlock(void)
 		}
 		else
 		{
+			// ブロックが上に移動をするようにする
 			m_nBlockCondition = MOVE_UP;
 		}
 		break;
@@ -132,6 +134,7 @@ void CMoveBlock::SetBlock(void)
 		}
 		else
 		{
+			// ブロックが右に移動をするようにする
 			m_nBlockCondition = MOVE_RIGHT;
 		}
 		break;
@@ -144,6 +147,7 @@ void CMoveBlock::SetBlock(void)
 		}
 		else
 		{
+			// ブロックが左に移動をするようにする
 			m_nBlockCondition = MOVE_LEFT;
 		}
 		break;
@@ -157,12 +161,12 @@ void CMoveBlock::SetBlock(void)
 }
 
 //=============================================================================
-// 移動ブロックの当たり判定
+// 移動ブロックの当たり判定処理
 //=============================================================================
 int CMoveBlock::MoveColision(void)
 {
 	//=============================================================================
-	// 自機とブロックの当たり判定
+	// 自機と移動ブロックの当たり判定
 	//=============================================================================
 	for (int nPriority = 0; nPriority < PRIORITY_MAX; nPriority++)
 	{
@@ -172,89 +176,104 @@ int CMoveBlock::MoveColision(void)
 		// オブジェクトの取得
 		pScene = CScene::GetScene(nPriority);
 
+		// オブジェクトがNULLじゃない限り回す
 		if (pScene != NULL)
 		{
 			// もしもオブジェクトがプレイヤーなら
 			if (nPriority == CScene::PRIORITY_PLAYER)
 			{
+				// 取得したオブジェクトをプレイヤーに代入
 				CPlayer *pPlayer = (CPlayer*)pScene;
 
+				// プレイヤーの現在の位置を取得
 				D3DXVECTOR3 Playerpos = pPlayer->GetPos();
+
+				// プレイヤーの前回の位置を取得
 				D3DXVECTOR3 posold = pPlayer->GetPosold();
+
+				// プレイヤーの移動量を取得
 				D3DXVECTOR3 move = pPlayer->GetMove();
-				D3DXVECTOR2 playersize = pPlayer->GetSize();
-				D3DXVECTOR3 Initmove = pPlayer->GetMove();
-				bool bJump = pPlayer->GetJump();
 
+				// プレイヤーの大きさを取得
+				D3DXVECTOR2 playersize = pPlayer->GetSize();						
 
-				if (m_pos.x - m_size.x <= Playerpos.x + playersize.x &&				//ブロックの左端
-					m_pos.x + m_size.x >= Playerpos.x - playersize.x &&				//ブロックの右端
-					m_pos.y - m_size.y <= Playerpos.y + playersize.y &&				//ブロックの下部
-					m_pos.y + m_size.y >= Playerpos.y - playersize.y)				//ブロックの上部
+				// プレイヤーがブロックに当たっているかどうかorめり込んでいるか
+				if (m_pos.x - m_size.x <= Playerpos.x + playersize.x &&				// ブロックの左端 <= プレイヤーの右端
+					m_pos.x + m_size.x >= Playerpos.x - playersize.x &&				// ブロックの右端 >= プレイヤーの左端
+					m_pos.y - m_size.y <= Playerpos.y + playersize.y &&				// ブロックの上端 <= プレイヤーの下部
+					m_pos.y + m_size.y >= Playerpos.y - playersize.y)				// ブロックの下端 >= プレイヤーの上部
 				{
-					if (m_pos.x - m_size.x >= posold.x + playersize.x)		//ブロックの左端
+					// あったていてかつプレイヤー前回の位置がブロックの左側にあったら
+					if (m_pos.x - m_size.x >= posold.x + playersize.x)				// ブロックの左端 <= 前回のプレイヤーの右端
 					{
-						Playerpos.x = m_pos.x - m_size.x - playersize.x;
+						// めり込んでいた時のために現在の位置を戻す
+						Playerpos.x = m_pos.x - m_size.x - playersize.x; // プレイヤーの現在の位置 =ブロックの左側の位置+大きさ-プレイヤーの大きさ
 
 						// ブロックが左に移動をしているとき
 						if (m_nBlockCondition == MOVE_LEFT)
-						{
-							// ブロックが移動してるときのプレイヤーの移動処理
+						{// ブロックが移動してるときのプレイヤーの移動処理
+							// プレイヤーの位置をブロックの移動量分移動させる
 							Playerpos.x -= m_move.x;
-						}
-
-						//move.y = 0.2f;
-
+						}						
+						// プレイヤーの現在の位置を設定
 						pPlayer->SetPos(Playerpos);
 						
+						// プレイヤーのジャンプ状況を設定
 						pPlayer->SetJump(false);
 
 						// プレイヤーがブロックの左側にいるとき
 						return MOVE_LEFT;
 					}
-					if (m_pos.x + m_size.x <= posold.x - playersize.x)		//ブロックの右端
+					// あったていてかつプレイヤー前回の位置がブロックの右側にあったら
+					if (m_pos.x + m_size.x <= posold.x - playersize.x)		// ブロックの右端 <= 前回のプレイヤーの左端
 					{
-						Playerpos.x = m_pos.x + m_size.x + playersize.x;
+						// めり込んでいた時のために現在の位置を戻す
+						Playerpos.x = m_pos.x + m_size.x + playersize.x;// プレイヤーの現在の位置 =ブロックの右側の位置+大きさ-プレイヤーの大きさ
 
 						// ブロックが右に移動をしているとき
 						if (m_nBlockCondition == MOVE_RIGHT)
-						{
-							// ブロックが移動してるときのプレイヤーの移動処理
+						{// ブロックが移動してるときのプレイヤーの移動処理
+
+							// プレイヤーの位置をブロックの移動量分移動させる
 							Playerpos.x += m_move.x;
-						}
-
-						//move.y = 0.2f;
-
+						}						
+						// プレイヤーの現在の位置を設定
 						pPlayer->SetPos(Playerpos);
 						
+						// プレイヤーのジャンプ状況を設定
 						pPlayer->SetJump(false);
 
 						// プレイヤーがブロックの右側にいるとき
 						return MOVE_RIGHT;
 					}
 
-					if (m_pos.y - m_size.y >= posold.y + playersize.y)						//ブロックの上部
+					// あったていてかつプレイヤー前回の位置がブロックの右側にあったら
+					if (m_pos.y - m_size.y >= posold.y + playersize.y)						// ブロックの上部 <= 前回のプレイヤーの下端
 					{
-						Playerpos.y = m_pos.y - m_size.y - playersize.y;
+						// めり込んでいた時のために現在の位置を戻す
+						Playerpos.y = m_pos.y - m_size.y - playersize.y;// プレイヤーの現在の位置 =ブロックの上側の位置+大きさ-プレイヤーの大きさ
+
+						// 重力を0にする
 						move.y = 0;
 
-						// ブロックの状態の遷移
+						// ブロックが移動してるときのプレイヤーの移動処理
 						switch (m_nBlockCondition)
 						{
 							// ブロックが上に移動をしているとき
 						case MOVE_UP:
+							// プレイヤーの位置をブロックの移動量分移動させる
 							Playerpos.y -= (m_move.y * 2);
 							break;
 
 							// ブロックが右に移動をしているとき
 						case MOVE_RIGHT:
-							// ブロックが移動してるときのプレイヤーの移動処理
+							// プレイヤーの位置をブロックの移動量分移動させる
 							Playerpos.x += m_move.x;
 							break;
 
 							// ブロックが左に移動をしているとき
 						case MOVE_LEFT:
-							// ブロックが移動してるときのプレイヤーの移動処理
+							// プレイヤーの位置をブロックの移動量分移動させる
 							Playerpos.x -= m_move.x;
 							break;
 
@@ -262,19 +281,31 @@ int CMoveBlock::MoveColision(void)
 							break;
 						}
 
+						// プレイヤーの現在の位置を設定
 						pPlayer->SetPos(Playerpos);
+
+						// プレイヤーの移動量を設定
 						pPlayer->SetMove(move);
+
+						// プレイヤーのジャンプ状況を設定
 						pPlayer->SetJump(false);
 
 						// プレイヤーがブロックの上側にいるとき
 						return MOVE_UP;
 					}
 
-					if (m_pos.y + m_size.y <= posold.y - playersize.y)			//ブロックの下部
+					if (m_pos.y + m_size.y <= posold.y - playersize.y)			//ブロックの下部 <= 前回のプレイヤーの上端
 					{
-						Playerpos.y = m_pos.y + m_size.y + playersize.y;
+						// めり込んでいた時のために現在の位置を戻す
+						Playerpos.y = m_pos.y + m_size.y + playersize.y;	// プレイヤーの現在の位置 =ブロックの下側の位置+大きさ-プレイヤーの大きさ
+
+						// 重力を0にする
 						move.y = 0;
+
+						// プレイヤーの現在の位置を設定
 						pPlayer->SetPos(Playerpos);
+
+						// プレイヤーの移動量を設定
 						pPlayer->SetMove(move);
 
 						// プレイヤーがブロックの下側にいるとき

@@ -124,6 +124,7 @@ void CRanking::SetRanking(int nRanking)
 	// ゲームをしている
 	if (m_bGamePlay)
 	{
+		// ゴールをしたかどうかの取得
 		bool bClear = CGoal::GetClear();
 		// クリアしている
 		if (bClear)

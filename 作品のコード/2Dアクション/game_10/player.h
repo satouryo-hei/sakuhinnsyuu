@@ -81,9 +81,9 @@ private:																			// 自分だけがアクセス可能
 	static LPDIRECT3DTEXTURE9 m_pTexture;											// テクスチャへのポインタ
 	int m_nCounterAnim;																// アニメーションカウンタ
 	int m_nPatternAnim;																// アニメーションパターンNo
-	const float m_fSizeU;
-	float m_fSizeMinV;
-	float m_fSizeMaxV;
+	const float m_fSizeU;															// アニメーションのU座標の大きさ（1度決めたら変動する事が基本的にないためconst）
+	float m_fSizeMinV;																// アニメーションのV座標の最小値の大きさ(横だけだと変動なし)
+	float m_fSizeMaxV;																// アニメーションのU座標の最大値の大きさ(横だけだと変動なし)
 	int m_nTimer;																	// 時間
 	int m_nCoolTime;																// クール時間
 	bool m_bBullet;																	// 弾を打ったかどうか

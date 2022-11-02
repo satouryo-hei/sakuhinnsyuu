@@ -25,6 +25,7 @@
 #include"goal.h"
 #include"score.h"
 #include"keyui.h"
+#include"facialui.h"
 
 //=============================================================================
 // 静的メンバ関数の宣言
@@ -41,6 +42,7 @@ CEnemy02* CGame::m_pEnemy = NULL;
 CGoal * CGame::m_pGoal = NULL;
 CScore * CGame::m_pScore = NULL;
 CKeyui * CGame::m_pKeyui = NULL;
+CFacialui * CGame::m_pFacialui = NULL;
 
 //=============================================================================
 // ゲームのコンストラクタ
@@ -66,7 +68,9 @@ HRESULT CGame::Init(D3DXVECTOR3 pos)
 {	
 	// 時間の生成
 	m_pTimer = CTimer::Create(D3DXVECTOR3(420.0f, 50.0f, 0.0f), D3DXVECTOR2(20.0f, 30.0f));	
-	// 時間の生成
+
+	m_pFacialui = CFacialui::Create(D3DXVECTOR3(50.0f, 50.0f, 0.0f), D3DXVECTOR2(40.0f, 40.0f), 25);
+	// アイテムの生成
 	m_pItem = CItem::Create(D3DXVECTOR3(1020.0f, 150.0f, 0.0f), D3DXVECTOR2(50, 50));	
 	m_pKeyui = CKeyui::Create(D3DXVECTOR3(120.0f, 50.0f, 0.0f), D3DXVECTOR2(50, 50));
 
@@ -90,6 +94,7 @@ void CGame::Uninit(void)
 {
 	if (m_pTimer != NULL)
 	{
+
 		m_pTimer->Uninit();
 		delete m_pTimer;
 		m_pTimer = NULL;

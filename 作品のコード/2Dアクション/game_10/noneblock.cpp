@@ -32,16 +32,20 @@ CNoneBlock::~CNoneBlock()
 //=============================================================================
 CNoneBlock *CNoneBlock::Create(D3DXVECTOR3 pos, D3DXVECTOR2 Size,bool bBreak ,int nTex)
 {
-	CNoneBlock *pBlock = NULL;
-	pBlock = new CNoneBlock;
+	// 普通のブロックのポインター生成
+	CNoneBlock *pNoneBlock = NULL;
 
-	if (pBlock != NULL)
+	// 動的メモリの確保
+	pNoneBlock = new CNoneBlock;
+
+	// NULLじゃなかったら
+	if (pNoneBlock != NULL)
 	{
-		pBlock->Init(pos, Size);
-		pBlock->m_bBreak = bBreak;
-		pBlock->Bindtexture(nTex);
+		pNoneBlock->Init(pos, Size);
+		pNoneBlock->m_bBreak = bBreak;
+		pNoneBlock->Bindtexture(nTex);
 	}
-	return pBlock;
+	return pNoneBlock;
 }
 
 //=============================================================================
@@ -51,6 +55,8 @@ HRESULT CNoneBlock::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 {
 	m_pos = pos;
 	m_size = Size;
+
+	// オブジェクト2Dの初期化処理の呼び出し
 	CScene2D::Init(pos, Size);
 	return S_OK;
 }
@@ -60,7 +66,7 @@ HRESULT CNoneBlock::Init(D3DXVECTOR3 pos, D3DXVECTOR2 Size)
 //=============================================================================
 void CNoneBlock::Uninit(void)
 {
-	//CScene2D::Uninit();
+	// 解放処理
 	Release();
 }
 
@@ -69,14 +75,17 @@ void CNoneBlock::Uninit(void)
 //=============================================================================
 void CNoneBlock::Update(void)
 {
+	// 使用してないなら
 	if (!m_bUse)
 	{
 		Uninit();
 		return;
 	}
 
+	// 弾との当たり判定
 	Colision();
 
+	// オブジェクト2Dの更新処理の呼び出し
 	CScene2D::Update();
 }
 
@@ -85,6 +94,7 @@ void CNoneBlock::Update(void)
 //=============================================================================
 void CNoneBlock::Draw(void)
 {
+	// オブジェクト2Dの描画処理の呼び出し
 	CScene2D::Draw();
 }
 
@@ -93,36 +103,52 @@ void CNoneBlock::Draw(void)
 //=============================================================================
 void CNoneBlock::Colision()
 {
+	// 弾のオブジェクトを取得
 	CScene * pScene = CScene::GetScene(CScene::PRIORITY_BULLET);
 
+	// オブジェクトがNULLじゃない限り回す
 	while (pScene != NULL)
 	{
+		// 取得したオブジェクトを弾に代入 
 		CBullet *pBullet = (CBullet*)pScene;
 
+		// 弾の現在の位置を取得
 		D3DXVECTOR3 Bulletpos = pBullet->GetPosition();
+
+		// 弾の大きさを取得
 		D3DXVECTOR2 BulletSize = pBullet->GetSize();		
 
-		if (m_pos.x + m_size.x >= Bulletpos.x &&
-			m_pos.x - m_size.x <= Bulletpos.x &&
-			m_pos.y + m_size.y >= Bulletpos.y &&
-			m_pos.y - m_size.y <= Bulletpos.y)
+		// 当たっているかどうか
+		if (m_pos.x + m_size.x >= Bulletpos.x &&	// ブロックの左端 <= 弾の右端
+			m_pos.x - m_size.x <= Bulletpos.x &&	// ブロックの右端 >= 弾の左端
+			m_pos.y + m_size.y >= Bulletpos.y &&	// ブロックの上端 <= 弾の下部
+			m_pos.y - m_size.y <= Bulletpos.y)		// ブロックの下端 >= 弾の上部
 		{
+			// もしも壊れるブロックであるかどうか
 			if (m_bBreak)
-			{
+			{// 壊れるブロックであれば
 				//爆発の生成
 				CExplosion::Create(m_pos, m_size, 9);
+
+				// 使わなくする
 				m_bUse = false;
 			}
-			else
+			else // それ以外
 			{
+				// 前回の弾の位置を取得
 				D3DXVECTOR3 BulletOldpos = pBullet->GetPosOld();
+
 				//爆発の生成
 				CExplosion::Create(BulletOldpos, BulletSize, 9);
 			}
+			// 弾の終了処理の呼び出し
 			pBullet->Uninit();
 		}
 
+		// ブロックオブジェクトの次のオブジェクトを取得
 		CScene * pSceneNext = CScene::GetNext(pScene);
+
+		// 取得したオブジェクトを代入
 		pScene = pSceneNext;
 	}
 }
