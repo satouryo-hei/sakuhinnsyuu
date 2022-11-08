@@ -18,7 +18,7 @@ class CItem;
 class CMeshField;
 class CMeshSky;
 class CWall;
-class CStage_Top;
+class CStage;
 class CEnemy02;
 class CGoal;
 class CScore;
@@ -58,7 +58,7 @@ private:																		// 自分だけがアクセス可能
 	static CMeshField * m_pMeshField;											// メッシュフィールドのポインター
 	static CMeshSky * m_pMeshSky;												// 空のポインター
 	static CWall * m_pWall;														// 壁のポインター
-	static CStage_Top * m_pStage;												// ステージのポインター
+	static CStage * m_pStage;													// ステージのポインター
 	static CEnemy02* m_pEnemy;													// 敵のポインター
 	static CGoal * m_pGoal;														// ゴールのポインター
 	static CScore * m_pScore;													// 点数のポインター	

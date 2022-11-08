@@ -31,7 +31,7 @@
 CPlayer* CTutorial::m_pPlayer = NULL;
 CItem* CTutorial::m_pAttack_up = NULL;
 CMeshSky		* CTutorial::m_pMeshSky = NULL;
-CStage_Tutorial* CTutorial::m_pStage = NULL;
+CStage* CTutorial::m_pStage = NULL;
 CEnemy02* CTutorial::m_pEnemy = NULL;
 
 //=============================================================================
@@ -61,7 +61,7 @@ HRESULT CTutorial::Init(D3DXVECTOR3 pos)
 	// 時間の生成
 	m_pAttack_up = CItem::Create(D3DXVECTOR3(1020.0f, 150.0f, 0.0f), D3DXVECTOR2(50, 50));
 
-	m_pStage = CStage_Tutorial::Create(D3DXVECTOR3(0.0f, 0.0f, 0));
+	m_pStage = CStage::Create(CStage::STAGE_TUTORIAL, pos, "data/STAGE/stazi_test.csv");
 	m_pEnemy = CEnemy02::Create(D3DXVECTOR3(100.0f, 100.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 0.0f), D3DXVECTOR2(30, 30));
 
 	// メッシュスカイ(空)の生成

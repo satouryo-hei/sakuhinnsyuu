@@ -180,9 +180,6 @@
     <ClCompile Include="pushbutton.cpp">
       <Filter>ソース ファイル\2D\UI</Filter>
     </ClCompile>
-    <ClCompile Include="stage_manager.cpp">
-      <Filter>ソース ファイル\ステージ</Filter>
-    </ClCompile>
     <ClCompile Include="facialui.cpp">
       <Filter>ソース ファイル\2D\UI</Filter>
     </ClCompile>
@@ -204,9 +201,6 @@
     <ClCompile Include="item.cpp">
       <Filter>ソース ファイル\2D\item</Filter>
     </ClCompile>
-    <ClCompile Include="stage002.cpp">
-      <Filter>ソース ファイル\ステージ</Filter>
-    </ClCompile>
     <ClCompile Include="stage_tutorial.cpp">
       <Filter>ソース ファイル\ステージ</Filter>
     </ClCompile>
@@ -227,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="uilode.cpp">
       <Filter>ソース ファイル\2D\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>ソース ファイル\ステージ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,9 +344,6 @@
     <ClInclude Include="pushbutton.h">
       <Filter>ヘッダー ファイル\2D\UI</Filter>
     </ClInclude>
-    <ClInclude Include="stage_manager.h">
-      <Filter>ヘッダー ファイル\ステージ</Filter>
-    </ClInclude>
     <ClInclude Include="facialui.h">
       <Filter>ヘッダー ファイル\2D\UI</Filter>
     </ClInclude>
@@ -374,9 +368,6 @@
     <ClInclude Include="item.h">
       <Filter>ヘッダー ファイル\2D\item</Filter>
     </ClInclude>
-    <ClInclude Include="stage002.h">
-      <Filter>ヘッダー ファイル\ステージ</Filter>
-    </ClInclude>
     <ClInclude Include="stage_tutorial.h">
       <Filter>ヘッダー ファイル\ステージ</Filter>
     </ClInclude>
@@ -394,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="score.h">
       <Filter>ヘッダー ファイル\2D\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
+      <Filter>ヘッダー ファイル\ステージ</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

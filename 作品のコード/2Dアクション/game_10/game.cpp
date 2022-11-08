@@ -37,7 +37,7 @@ CItem* CGame::m_pItem = NULL;
 CMeshField		* CGame::m_pMeshField = NULL;
 CMeshSky		* CGame::m_pMeshSky = NULL;
 CWall* CGame::m_pWall = NULL;
-CStage_Top* CGame::m_pStage = NULL;
+CStage* CGame::m_pStage = NULL;
 CEnemy02* CGame::m_pEnemy = NULL;
 CGoal * CGame::m_pGoal = NULL;
 CScore * CGame::m_pScore = NULL;
@@ -74,7 +74,7 @@ HRESULT CGame::Init(D3DXVECTOR3 pos)
 	m_pItem = CItem::Create(D3DXVECTOR3(1020.0f, 150.0f, 0.0f), D3DXVECTOR2(50, 50));	
 	m_pKeyui = CKeyui::Create(D3DXVECTOR3(120.0f, 50.0f, 0.0f), D3DXVECTOR2(50, 50));
 
-	m_pStage = CStage_Top::Create(D3DXVECTOR3(0.0f, 0.0f, 0));
+	m_pStage = CStage::Create(CStage::STAGE_TOP, D3DXVECTOR3(0.0f, 0.0f, 0), "data/STAGE/stazi_Top.csv");
 	m_pEnemy = CEnemy02::Create(D3DXVECTOR3(1000.0f, 500.0f, 0.0f), D3DXVECTOR3(1.0f, 1.0f, 0.0f), D3DXVECTOR2(30,30));
 
 	// メッシュフィールド(地上)の生成

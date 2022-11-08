@@ -1,38 +1,32 @@
-//=============================================================================
+///=============================================================================
 //
 // ステージ処理 [bg.cpp]
 // Author : 佐藤瞭平
 //
 //=============================================================================
 #include"stage.h"
-#include"renderer.h"
-#include"manager.h"
 #include"block.h"
 #include"moveblock.h"
-#include"noneblock.h"
-#include"pushblock.h"
+#include"stage_top.h"
+#include"stage_tutorial.h"
 
 //=============================================================================
 // 静的メンバ関数の宣言
 //=============================================================================
-CBlock* CStage_Tutorial::m_pBlock[256] = {};
+CBlock* CStage::m_pBlock[256] = {};
 
-CNoneBlock * CStage_Tutorial::m_pNone[128] = {};
-CMoveBlock * CStage_Tutorial::m_pMove[128] = {};
-CPushBlock * CStage_Tutorial::m_pPush[128] = {};
-const char * CStage_Tutorial::m_pTutorial_StageFileName = "data/STAGE/stazi_test.csv";
 //=============================================================================
 // ステージのコンストラクタ
 //=============================================================================
-CStage_Tutorial::CStage_Tutorial(int nPriority) : CScene(PRIORITY_NOMAL)
-{	
+CStage::CStage(int nPriority) : CScene(PRIORITY_NOMAL)
+{
 	m_nNum = 0;
 }
 
 //=============================================================================
 // ステージのデストラクタ
 //=============================================================================
-CStage_Tutorial::~CStage_Tutorial()
+CStage::~CStage()
 {
 
 }
@@ -40,95 +34,96 @@ CStage_Tutorial::~CStage_Tutorial()
 //=============================================================================
 // ステージの生成処理
 //=============================================================================																				
-CStage_Tutorial *CStage_Tutorial::Create(D3DXVECTOR3 pos)
+CStage *CStage::Create(STAGE stage, D3DXVECTOR3 pos, const char * pStageFileNamee)
 {
-	CStage_Tutorial* pStage_Tutorial;
+	// ステージトップのポインター生成
+	CStage* pStage = NULL;
 
-	pStage_Tutorial = new CStage_Tutorial;
 
-	if (pStage_Tutorial !=NULL)
+	switch (stage)
 	{
-		pStage_Tutorial->Init(pos);
-	}
+	case STAGE_TOP:
+		pStage = new CStage_Top;
+		break;
 
-	return pStage_Tutorial;
+	case STAGE_TUTORIAL:
+		pStage = new CStage_Tutorial;
+		break;
+
+	default:
+		break;
+	}
+	pStage->LodeStage(pStageFileNamee);
+	pStage->Init(pos);
+
+	return pStage;
 }
 
 //=============================================================================
 // ステージの初期化処理
 //=============================================================================
-HRESULT CStage_Tutorial::Init(D3DXVECTOR3 pos)
+HRESULT CStage::Init(D3DXVECTOR3 pos)
 {
-	int nNoneCnt = 0;
-	int nMoveCnt = 0;
-	int nPushCnt = 0;
-
-	LodeStage();	
-
 	for (int nCntY = 0; nCntY < m_nColumn; nCntY++)
 	{
 		for (int nCntX = 0; nCntX < m_nLine; nCntX++)
 		{
 			if (m_aMap[nCntY][nCntX] == 1)
 			{
+				// 普通のブロックの生成
 				m_pBlock[m_nNum] = CBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(20, 20), D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 					CBlock::BLOCKTYPE_NOME, 0, 0, 0, false, 7);
 				m_nNum++;
-				//m_pNone[nNoneCnt] = CNoneBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(20, 20), 7);
-				//nNoneCnt++;
 			}
 
 			if (m_aMap[nCntY][nCntX] == 2)
 			{
+				// 壊れるのブロックの生成
 				m_pBlock[m_nNum] = CBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(20, 20), D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 					CBlock::BLOCKTYPE_NOME, 0, 0, 0, true, 7);
 				m_nNum++;
-				//m_pNone[nNoneCnt] = CNoneBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(20, 20), 7);
-				//nNoneCnt++;
 			}
 			if (m_aMap[nCntY][nCntX] == 3)
 			{
-				//m_pMove[nMoveCnt] = CMoveBlock::Create(D3DXVECTOR3(30 + 60 * nCntX, 0 + 60 * nCntY, 0), D3DXVECTOR2(30, 60), D3DXVECTOR3(1.0f, 1.0f, 0.0f),
-				//	 CMoveBlock::MOVE_LEFT, 600, 800, 7);
-				//nMoveCnt++;
+				// 横移動ブロックの生成
 				m_pBlock[m_nNum] = CBlock::Create(D3DXVECTOR3(30 + 60 * nCntX, 0 + 60 * nCntY, 0), D3DXVECTOR2(30, 60), D3DXVECTOR3(1.0f, 1.0f, 0.0f),
 					CBlock::BLOCKTYPE_MOVEING, CMoveBlock::MOVE_LEFT, 600, 800, false, 7);
 				m_nNum++;
 			}
 			if (m_aMap[nCntY][nCntX] == 4)
 			{
-				/*m_pMove[nMoveCnt] = CMoveBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(60, 30), D3DXVECTOR3(0.0f, 1.0f, 0.0f),
-					CMoveBlock::MOVE_UP, 100, 300, 7);*/
-					//nMoveCnt++;
+				// 縦移動ブロックの生成
 				m_pBlock[m_nNum] = CBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(60, 30), D3DXVECTOR3(0.0f, 1.0f, 0.0f),
 					CBlock::BLOCKTYPE_MOVEING, CMoveBlock::MOVE_UP, 100, 300, false, 7);
 				m_nNum++;
 			}
 			if (m_aMap[nCntY][nCntX] == 5)
 			{
-				//m_pPush[nPushCnt] = CPushBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, -20 + 40 * nCntY, 0), D3DXVECTOR2(30, 60), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 7);
-				//nPushCnt++;
+				// 押されるブロックの生成
 				m_pBlock[m_nNum] = CBlock::Create(D3DXVECTOR3(20 + 40 * nCntX, 60 * nCntY, 0), D3DXVECTOR2(30, 20), D3DXVECTOR3(0.0f, 0.0f, 0.0f),
 					CBlock::BLOCKTYPE_PUSH, 0, 600, 800, false, 7);
 				m_nNum++;
 			}
 		}
 	}
+
 	return S_OK;
 }
+
 
 //=============================================================================
 // ステージの終了処理
 //=============================================================================
-void CStage_Tutorial::Uninit(void)
+void CStage::Uninit(void)
 {
+	// 解放処理
 	Release();
 }
 
 //=============================================================================
 // ステージの更新処理
 //=============================================================================
-void CStage_Tutorial::Update(void)
+void CStage::Update(void)
 {
 
 }
@@ -136,7 +131,7 @@ void CStage_Tutorial::Update(void)
 //=============================================================================
 // ステージの描画処理
 //=============================================================================
-void CStage_Tutorial::Draw(void)
+void CStage::Draw(void)
 {
 
 }
@@ -144,10 +139,10 @@ void CStage_Tutorial::Draw(void)
 //=============================================================================
 // ステージの描画処理
 //=============================================================================
-void CStage_Tutorial::LodeStage(void)
-{	
+void CStage::LodeStage(const char * pStageFileName)
+{
 	// 開け～ファイル！
-	FILE *pFile = fopen(m_pTutorial_StageFileName, "r");
+	FILE *pFile = fopen(pStageFileName, "r");
 
 	// ファイルがあったら
 	if (pFile != NULL)

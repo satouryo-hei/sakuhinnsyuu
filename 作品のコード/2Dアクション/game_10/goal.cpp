@@ -11,6 +11,7 @@
 #include"pushbutton.h"
 #include"facialui.h"
 #include"game.h"
+#include"choose_game.h"
 
 //=============================================================================
 // 静的メンバ変数の宣言
@@ -131,10 +132,11 @@ void CGoal::Update(void)
 						{
 							// ゲームをクリアしたことにする
 							m_bGameClear = true;
-
-							// 喜び表情に切り替え
-							CGame::GetFace()->SetFace(CFacialui::FACE_JOY);
-
+							if (CChoose_Game::GetGame())
+							{
+								// 喜び表情に切り替え
+								CGame::GetFace()->SetFace(CFacialui::FACE_JOY);
+							}
 							// 次のモードに遷移
 							CFade::SetFade(m_NextMode);
 

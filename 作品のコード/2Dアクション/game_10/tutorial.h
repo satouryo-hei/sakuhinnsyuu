@@ -14,7 +14,7 @@
 class CPlayer;
 class CItem;
 class CMeshSky;
-class CStage_Tutorial;
+class CStage;
 class CEnemy02;
 
 //*****************************************************************************
@@ -39,9 +39,9 @@ public:
 
 private:																		// 自分だけがアクセス可能		
 	static CPlayer* m_pPlayer;													// プレイヤーのポインター
-	static CItem* m_pAttack_up;											// 攻撃力アップのポインター	
+	static CItem* m_pAttack_up;													// 攻撃力アップのポインター	
 	static CMeshSky * m_pMeshSky;												// 空のポインター	
-	static CStage_Tutorial * m_pStage;											// ステージのポインター
+	static CStage * m_pStage;													// ステージのポインター
 	static CEnemy02* m_pEnemy;													// 敵のポインター
 	bool m_bUse;																// 使っているかどうか
 	bool m_bFade;																// 遷移したかどうか
