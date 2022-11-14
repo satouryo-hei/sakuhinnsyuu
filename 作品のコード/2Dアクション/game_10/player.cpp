@@ -556,8 +556,19 @@ void CPlayer::BlockColision(void)
 			}																   
 			else if (m_posold.y - m_size.y >= Blockpos.y + Blocksize.y)		// 前回のプレイヤーの上端>=ブロックの下端
 			{																   
-				m_pos.y = Blockpos.y + Blocksize.y + m_size.y;				   
-				m_move.y = 0.0f;											   
+				if (m_posold.x - m_size.x >= Blockpos.x + Blocksize.x)		// 前回のプレイヤーの左端>=ブロックの右端			
+				{
+					m_pos.x = Blockpos.x + m_size.x + Blocksize.x;
+				}
+				else if (m_posold.x + m_size.x <= Blockpos.x - Blocksize.x)		// 前回のプレイヤーの右端<=ブロックの左端
+				{
+					m_pos.x = Blockpos.x - m_size.x - Blocksize.x;
+				}
+				else
+				{
+					m_pos.y = Blockpos.y + Blocksize.y + m_size.y;
+					m_move.y = 0.0f;
+				}
 			}																   
 			else if (m_posold.x - m_size.x >= Blockpos.x + Blocksize.x)		// 前回のプレイヤーの左端>=ブロックの右端			
 			{																   
